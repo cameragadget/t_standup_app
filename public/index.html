@@ -6,9 +6,12 @@
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script src="https://trello.com/1/client.js?key=67929b4f830358f56a6508bd5ddb0c08"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
 
 </head>
 <body>
@@ -22,6 +25,9 @@
             <li><a ui-sref-active="active" ui-sref="dashboard" class="btn">Dashboard</a></li>
             <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
           </ul>
+          <div class="pull-right">
+              <button ui-sref="signin" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
+          </div>
         </div>
       </nav>
     </header>
@@ -34,5 +40,6 @@
 
   <script src="/js/app/app.module.js"></script>
   <script src="/js/app/config/app.routes.js"></script>
+  <script src="/js/app/auth/signin.controller.js"></script>
 </body>
 </html>
