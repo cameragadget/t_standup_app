@@ -1,4 +1,4 @@
-(function(){
+(function () {
   'use strict';
 
   angular
@@ -7,33 +7,27 @@
 
   authService.$inject = ["$log", "tokenService", "$http"];
 
-  function authService($log, tokenService, $http) {
-    $log.info("authService loaded");
+  function authService($log, token, $http) {
+    $log.debug("authService loaded!");
 
     var service = {
       logIn:        logIn,
       isLoggedIn:   isLoggedIn,
-      currentUser:  currentUser
-          };
-
+      logOut:       logOut,
+      currentUser:  currentUser,
+      refreshToken: refreshToken
+    };
     return service;
 
-    function logIn(data) {
+    function refreshToken() {
       var promise = $http({
         method: 'POST',
-        url:    '/api/token',
-        data:   data
+        url:    '/api/users/me/token'
       })
-      .then(
-        function(res) {
-          token.store(res.data.token);
-          return token.decode();
-        }
-      );
-
-    function isLoggedIn() {
-      return (token.retrieve() != null);
-    }
+      .then(function(res) {
+        token.store(res.data.token);
+        return token.decode();
+      });
 
       return promise;
     }
@@ -43,6 +37,7 @@
 
       if (tokenData) {
         tokenData.expiresAt = Date(tokenData.exp);
+
         delete tokenData.exp;
         delete tokenData.iat;
       }
@@ -52,19 +47,31 @@
       return tokenData;
     }
 
+    function logOut() {
+      token.destroy();
+      $log.debug("Logged out…");
+    }
 
+    function isLoggedIn() {
+      return (token.retrieve() != null);
+    }
 
+    function logIn(data) {
+      var promise = $http({
+        method: 'POST',
+        url:    '/api/token',
+        data:   data
+      })
+      .then(
 
+        function(res) {
+          token.store(res.data.token);
+          return token.decode();
+        }
+      );
 
-
+      return promise;
+    }
   }
-
-
-
-
-
-
-
-
 
 })();

@@ -20,14 +20,14 @@
 
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
+        <div class="container" ng-controller="trelloSignInController as vm">
           <ul class="nav navbar-nav">
             <li><a ui-sref-active="active" ui-sref="welcome" class="btn">Welcome</a></li>
             <li><a ui-sref-active="active" ui-sref="dashboard" class="btn">Dashboard</a></li>
             <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
-              <button ui-sref="signin" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
+              <button ng-click="vm.tSignIn()" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
           </div>
         </div>
       </nav>
@@ -44,5 +44,6 @@
   <script src="/js/app/auth/signin.controller.js"></script>
   <script src="/js/app/auth/auth.service.js"></script>
   <script src="/js/app/auth/token.service.js"></script>
+  <script src="/js/app/auth/trelloSignIn.service.js"></script>
 </body>
 </html>
