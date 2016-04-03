@@ -4,12 +4,12 @@ var favicon      = require('serve-favicon');
 var logger       = require('morgan');
 var bodyParser   = require('body-parser');
 var debug        = require('debug')('app:http');
-var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser')
 
 // Load local libraries.
 var env      = require('./config/environment'),
     mongoose = require('./config/database'),
-    routes   = require('./config/routes');
+    routes   = require('./routes/api_routes');
 
 // Instantiate a server application.
 var app = express();
@@ -17,9 +17,6 @@ var app = express();
 // Configure the application (and set it's title!).
 app.set('title', env.TITLE);
 app.set('safe-title', env.SAFE_TITLE);
-// EJS view engine config
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 // Create local variables for use thoughout the application.
 app.locals.title = app.get('title');
@@ -42,8 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Useful for debugging the state of requests.
 app.use(debugReq);
 
-// Defines all of our "dynamic" routes.
-app.use('/', routes);
+// Defines all of our routes.
+app.use('/api', routes);
 
 // Catches all 404 routes.
 app.use(function(req, res, next) {
