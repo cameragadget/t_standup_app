@@ -1,1 +1,20 @@
 <h1>Dashboard View</h1>
+
+
+<div class="dropdown">
+  <button ng-click="vm.trello.getBoards()" class="btn btn-default dropdown-toggle" type="button" id="boardsDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    My Boards
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="boardsDropDown">
+   <li ng-repeat="board in boards"><a href="#">{{board.name}}<a></li>
+  </ul>
+</div>
+
+
+
+  <div class="pull-right">
+    <button ng-click="vm.trello.getBoards()" type="button" class="btn btn-danger">boards?</button>
+  </div>
+
+

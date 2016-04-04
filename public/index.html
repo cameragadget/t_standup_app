@@ -26,7 +26,7 @@
             <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
-              <span class="navbar-brand name" ng-show="vm.authService.isLoggedIn();">{{vm.authService.currentUser().fullName}}</span>
+              <a class="navbar-brand name" ng-show="vm.authService.isLoggedIn();" href="http://www.trello.com" target="_blank">{{vm.authService.currentUser().fullName}}</a>
               <button ng-click="vm.tSignIn()" ng-hide="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
               <button ng-click="vm.authService.logOut();" ng-show="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
           </div>
@@ -40,9 +40,6 @@
     </main>
   </div>
 
-  <div class="pull-right">
-    <button ng-click="vm.trello.getBoards()" type="button" class="btn btn-danger">boards?</button>
-  </div>
 
   <script src="/js/app/app.module.js"></script>
   <script src="/js/app/config/app.routes.js"></script>

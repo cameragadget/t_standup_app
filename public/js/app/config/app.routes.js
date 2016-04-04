@@ -21,10 +21,6 @@
       .state('standup', {
         url: "/standup",
         templateUrl: "/js/app/layouts/standup.html"
-      })
-      .state('signin', {
-        url: "/signin",
-        templateUrl: "/js/app/layouts/signin.html"
       });
 
 
