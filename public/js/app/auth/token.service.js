@@ -10,18 +10,13 @@
   function tokenService($log, $window) {
     $log.debug("tokenService loaded!");
 
-    const TOKEN_KEY = 'trelloToken';
+    const TOKEN_KEY = 'trello_token';
     var service = {
-      store:    store,
       retrieve: retrieve,
       decode:   decode,
       destroy:  destroy
     };
     return service;
-
-    function store(token) {
-      $window.localStorage.setItem(TOKEN_KEY, token);
-    }
 
     function retrieve() {
       return $window.localStorage.getItem(TOKEN_KEY);

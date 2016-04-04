@@ -11,26 +11,12 @@
     $log.debug("authService loaded!");
 
     var service = {
-      logIn:        logIn,
       isLoggedIn:   isLoggedIn,
       logOut:       logOut,
       currentUser:  currentUser,
-      refreshToken: refreshToken
     };
+
     return service;
-
-    function refreshToken() {
-      var promise = $http({
-        method: 'POST',
-        url:    '/api/users/me/token'
-      })
-      .then(function(res) {
-        token.store(res.data.token);
-        return token.decode();
-      });
-
-      return promise;
-    }
 
     function currentUser() {
       var tokenData = token.decode();
@@ -56,22 +42,6 @@
       return (token.retrieve() != null);
     }
 
-    function logIn(data) {
-      var promise = $http({
-        method: 'POST',
-        url:    '/api/token',
-        data:   data
-      })
-      .then(
-
-        function(res) {
-          token.store(res.data.token);
-          return token.decode();
-        }
-      );
-
-      return promise;
-    }
   }
 
 })();
