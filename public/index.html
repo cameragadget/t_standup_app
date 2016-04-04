@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>T StandUp</title>
-  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
 
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="https://trello.com/1/client.js?key=67929b4f830358f56a6508bd5ddb0c08"></script>
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
@@ -14,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
 
 </head>
-<body ng-controller="trelloSignInController as vm">
+<body ng-controller="MainController as mainCtrl">
   <div class="container-fluid">
 
     <header>
@@ -22,13 +23,13 @@
         <div class="container">
           <ul class="nav navbar-nav">
             <li><a ui-sref-active="active" ui-sref="welcome" class="btn">Welcome</a></li>
-            <li><a ui-sref-active="active" ui-sref="dashboard" class="btn">Dashboard</a></li>
-            <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
+            <li><a ui-sref-active="active" ui-sref="dashboard" ng-show="mainCtrl.authService.currentUser" class="btn">Dashboard</a></li>
+            <li><a ui-sref-active="active" ui-sref="standup" ng-show="mainCtrl.authService.currentUser" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
-              <a class="navbar-brand name" ng-show="vm.authService.isLoggedIn();" href="http://www.trello.com" target="_blank">{{vm.authService.currentUser().fullName}}</a>
-              <button ng-click="vm.tSignIn()" ng-hide="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
-              <button ng-click="vm.authService.logOut();" ng-show="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
+            <a class="navbar-brand name" ng-show="mainCtrl.authService.currentUser" href="http://www.trello.com" target="_blank">{{mainCtrl.authService.currentUser.fullName}}</a>
+            <button ng-click="mainCtrl.logIn()" ng-hide="mainCtrl.authService.currentUser" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
+            <button ng-click="mainCtrl.authService.logOut();" ng-show="mainCtrl.authService.currentUser" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
           </div>
         </div>
       </nav>
@@ -45,8 +46,8 @@
   <script src="/js/app/config/app.routes.js"></script>
   <script src="/js/app/auth/auth.service.js"></script>
   <script src="/js/app/auth/token.service.js"></script>
-    <script src="/js/app/auth/user.service.js"></script>
-  <script src="/js/app/auth/trelloSignIn.controller.js"></script>
+  <script src="/js/app/shell/main.controller.js"></script>
+  <script src="/js/app/dashboard/dashboard.controller.js"></script>
   <script src="/js/app/trello/trelloApi.service.js"></script>
 </body>
 </html>

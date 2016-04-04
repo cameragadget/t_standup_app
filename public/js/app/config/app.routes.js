@@ -12,15 +12,20 @@
     $stateProvider
       .state("welcome", {
         url: "/",
-        templateUrl: "/js/app/layouts/welcome.html"
+        templateUrl: "/js/app/layouts/welcome.html",
+        requireAuth: false
       })
       .state('dashboard', {
         url: "/dashboard",
-        templateUrl: "/js/app/layouts/dashboard.html"
+        templateUrl: "/js/app/dashboard/dashboard.html",
+        controller: "DashboardController",
+        controllerAs: "vm",
+        requireAuth: true
       })
       .state('standup', {
         url: "/standup",
-        templateUrl: "/js/app/layouts/standup.html"
+        templateUrl: "/js/app/layouts/standup.html",
+        requireAuth: true
       });
 
 

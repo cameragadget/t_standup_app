@@ -5,35 +5,50 @@
     .module('app')
     .factory("authService", authService);
 
-  authService.$inject = ["$log", "tokenService"];
+  authService.$inject = ["$log", "tokenService", "trelloApiService", "$state"];
 
-  function authService($log, tokenService) {
+  function authService($log, tokenService, trelloApiService, $state) {
     $log.debug("authService loaded!");
 
     var service = {
-      isLoggedIn:   isLoggedIn,
       logOut:       logOut,
       logIn:        logIn,
-      currentUser:  currentUser,
+      currentUser:  null
     };
 
     return service;
 
-    function currentUser() {
-      return tokenService.retrieve();
+    function logIn() {
+      return Trello.authorize({
+        name: "T Stand Up",
+        type: "popup",
+        interactive: true,
+        expiration: "never",
+        persist: true,
+        success: onAuthorizeSuccessful,
+        scope: { write: false, read: true }
+      });
     }
 
-    function logIn(trelloToken, id, fullName) {
-      tokenService.store(trelloToken, id, fullName);
+    function onAuthorizeSuccessful() {
+      trelloApiService.getMyInfo()
+      .then(function(info) {
+        service.currentUser = {
+          fullName: info.fullName,
+          id: info.id,
+          token: Trello.token()
+        };
+        tokenService.store(service.currentUser.token);
+        // force a rerun of the digest cycle to update the view…
+        $state.go('dashboard');
+      });
     }
 
     function logOut() {
       tokenService.destroy();
+      service.currentUser = null;
       $log.debug("Logged out…");
-    }
-
-    function isLoggedIn() {
-      return (tokenService.retrieve() != null);
+      $state.go('welcome');
     }
 
   }
