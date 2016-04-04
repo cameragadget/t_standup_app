@@ -5,14 +5,15 @@
     .module("app")
     .controller("trelloSignInController", trelloSignInController);
 
-  trelloSignInController.$inject = ["$scope", "$log", "authService", "$state", "$window"];
+  trelloSignInController.$inject = ["$scope", "$log", "authService", "trelloApiService", "$state", "$window"];
 
-  function trelloSignInController($scope, $log, authService, $state, $window) {
+  function trelloSignInController($scope, $log, authService, trello, $state, $window) {
     var vm = this;
 
     vm.tSignIn     = tSignIn;
     vm.authService = authService;
     vm.getMyInfo   = getMyInfo;
+    vm.trello      = trello;
 
     function tSignIn(){
       Trello.authorize({

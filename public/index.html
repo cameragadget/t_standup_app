@@ -14,12 +14,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
 
 </head>
-<body>
+<body ng-controller="trelloSignInController as vm">
   <div class="container-fluid">
 
     <header>
       <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container" ng-controller="trelloSignInController as vm">
+        <div class="container">
           <ul class="nav navbar-nav">
             <li><a ui-sref-active="active" ui-sref="welcome" class="btn">Welcome</a></li>
             <li><a ui-sref-active="active" ui-sref="dashboard" class="btn">Dashboard</a></li>
@@ -40,8 +40,8 @@
     </main>
   </div>
 
-  <div class="pull-right" ng-controller="trelloApiService as vm">
-    <button ng-click="vm.getBoards()" type="button" class="btn btn-danger">boards?</button>
+  <div class="pull-right">
+    <button ng-click="vm.trello.getBoards()" type="button" class="btn btn-danger">boards?</button>
   </div>
 
   <script src="/js/app/app.module.js"></script>
