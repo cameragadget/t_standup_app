@@ -7,10 +7,13 @@
 
   trelloSignInController.$inject = ["$log", "tokenService", "$state", "$window"];
 
-    function trelloSignInController($log, tokenService, $state, $window) {
+  function trelloSignInController($log, tokenService, $state, $window) {
     var vm = this;
 
-    vm.tSignIn = tSignIn
+    vm.tSignIn    = tSignIn;
+    vm.logOut     = logOut;
+    vm.isLoggedIn = isLoggedIn;
+
 
 
     function tSignIn(){
@@ -26,7 +29,7 @@
     }
 
      function logOut() {
-      token.destroy();
+      tokenService.destroy();
       $log.info("Logged out…");
     }
 
@@ -39,6 +42,10 @@
     function getMyInfo(){
       var res = Trello.get("members/me", { fields: "username,fullName" });
       $log.info(res);
+    }
+
+    function isLoggedIn() {
+      return (tokenService.retrieve() != null);
     }
 
     $log.debug("SignInController loaded!");
