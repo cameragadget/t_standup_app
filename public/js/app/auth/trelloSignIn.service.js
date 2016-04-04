@@ -17,15 +17,16 @@
 
 
 
+
     function tSignIn(){
-      Trello.authorize({
-        name: "T Stand Up",
-        type: "popup",
-        interactive: true,
-        expiration: "never",
-        persist: true,
-        success: function () { onAuthorizeSuccessful(); },
-        scope: { write: false, read: true }
+        Trello.authorize({
+          name: "T Stand Up",
+          type: "popup",
+          interactive: true,
+          expiration: "never",
+          persist: true,
+          success: function (){ onAuthorizeSuccessful(); },
+          scope: { write: false, read: true }
       });
     }
 
@@ -37,17 +38,20 @@
     function onAuthorizeSuccessful() {
       var token = Trello.token();
       $log.info(token);
-      getMyInfo();
+      getMyInfo()
+      .then(function(info){
+          vm.info = info;
+        });
     }
 
     function isLoggedIn() {
       return (tokenService.retrieve() != null);
     }
 
-var myName;
+
 
     function getMyInfo() {
-      Trello.get("members/me/", { fields: "fullName" })
+      return Trello.get("members/me/", { fields: "fullName" })
       .then(
         function(myInfo) {
         $log.info("Well hi there ", myInfo);

@@ -5,8 +5,6 @@ module.exports = {
 }
 
 
-
-
 // CREATE TEAM
 
 function create(req, res, next) {

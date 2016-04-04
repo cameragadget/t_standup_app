@@ -27,7 +27,7 @@
             <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
-              <span class="name" ng-show="vm.isLoggedIn()">{{vm.getMyInfo.fullName}}</span>
+              <span class="navbar-brand name" ng-show="vm.isLoggedIn()">{{vm.info.fullName}}</span>
               <button ng-click="vm.tSignIn()" ng-hide="vm.isLoggedIn()" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
               <button ng-click="vm.logOut();" ng-show="vm.isLoggedIn()" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
           </div>
