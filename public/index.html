@@ -39,10 +39,15 @@
     </main>
   </div>
 
+            <div class="pull-right" ng-controller="trelloApiService as vm">
+            <button ng-click="vm.getBoards()" type="button" class="btn btn-danger">boards?</button>
+          </div>
+
   <script src="/js/app/app.module.js"></script>
   <script src="/js/app/config/app.routes.js"></script>
   <script src="/js/app/auth/auth.service.js"></script>
   <script src="/js/app/auth/token.service.js"></script>
   <script src="/js/app/auth/trelloSignIn.service.js"></script>
+    <script src="/js/app/trello/trelloApi.service.js"></script>
 </body>
 </html>
