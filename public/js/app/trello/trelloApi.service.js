@@ -3,17 +3,19 @@
 
   angular
     .module("app")
-    .controller("trelloApiService", trelloApiService);
+    .factory("trelloApiService", trelloApiService);
 
   trelloApiService.$inject = ["$log", "tokenService", "$state", "$window"];
 
   function trelloApiService($log, tokenService, $state, $window) {
-    var vm = this;
-    vm.getBoards = getBoards;
+    var service = {
+      getBoards: getBoards
+    };
 
+    return service;
 
     function getBoards() {
-      Trello.get("members/me/boards", { fields: "name,id" })
+      return Trello.get("members/me/boards", { fields: "name,id" })
       .then(
         function(boards) {
         $log.info("boards found: ", boards);
@@ -26,9 +28,18 @@
 
     }
 
-
-
-
+  function getBoardMembers(boardId) {
+  return Trello.get("/boards/" + boardId + "/memberships", {fields: "fullName,id"})
+    .then(
+      function(members) {
+        console.log("members found: ", members);
+        return members;
+      },
+      function(err) {
+        console.log("Failure: ", err);
+      }
+    );
+};
 
 
 

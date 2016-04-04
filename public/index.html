@@ -8,7 +8,6 @@
 
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script src="https://trello.com/1/client.js?key=67929b4f830358f56a6508bd5ddb0c08"></script>
-  <script src="/js/vendor/jwt-decode.2.0.1.js"></script>
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
@@ -27,9 +26,9 @@
             <li><a ui-sref-active="active" ui-sref="standup" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
-              <span class="navbar-brand name" ng-show="vm.isLoggedIn()">{{vm.info.fullName}}</span>
-              <button ng-click="vm.tSignIn()" ng-hide="vm.isLoggedIn()" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
-              <button ng-click="vm.logOut();" ng-show="vm.isLoggedIn()" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
+              <span class="navbar-brand name" ng-show="vm.authService.isLoggedIn();">{{vm.authService.currentUser().fullName}}</span>
+              <button ng-click="vm.tSignIn()" ng-hide="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign in with Trello!</button>
+              <button ng-click="vm.authService.logOut();" ng-show="vm.authService.isLoggedIn();" type="button" class="btn btn-default navbar-btn navbar-right">Sign out</button>
           </div>
         </div>
       </nav>
@@ -41,15 +40,16 @@
     </main>
   </div>
 
-            <div class="pull-right" ng-controller="trelloApiService as vm">
-            <button ng-click="vm.getBoards()" type="button" class="btn btn-danger">boards?</button>
-          </div>
+  <div class="pull-right" ng-controller="trelloApiService as vm">
+    <button ng-click="vm.getBoards()" type="button" class="btn btn-danger">boards?</button>
+  </div>
 
   <script src="/js/app/app.module.js"></script>
   <script src="/js/app/config/app.routes.js"></script>
   <script src="/js/app/auth/auth.service.js"></script>
   <script src="/js/app/auth/token.service.js"></script>
-  <script src="/js/app/auth/trelloSignIn.service.js"></script>
-    <script src="/js/app/trello/trelloApi.service.js"></script>
+    <script src="/js/app/auth/user.service.js"></script>
+  <script src="/js/app/auth/trelloSignIn.controller.js"></script>
+  <script src="/js/app/trello/trelloApi.service.js"></script>
 </body>
 </html>

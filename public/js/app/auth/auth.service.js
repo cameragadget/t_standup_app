@@ -1,45 +1,39 @@
-(function () {
+(function() {
   'use strict';
 
   angular
     .module('app')
     .factory("authService", authService);
 
-  authService.$inject = ["$log", "tokenService", "$http"];
+  authService.$inject = ["$log", "tokenService"];
 
-  function authService($log, token, $http) {
+  function authService($log, tokenService) {
     $log.debug("authService loaded!");
 
     var service = {
       isLoggedIn:   isLoggedIn,
       logOut:       logOut,
+      logIn:        logIn,
       currentUser:  currentUser,
     };
 
     return service;
 
     function currentUser() {
-      var tokenData = token.decode();
+      return tokenService.retrieve();
+    }
 
-      if (tokenData) {
-        tokenData.expiresAt = Date(tokenData.exp);
-
-        delete tokenData.exp;
-        delete tokenData.iat;
-      }
-
-      $log.debug("Current user retrieved:", tokenData);
-
-      return tokenData;
+    function logIn(trelloToken, id, fullName) {
+      tokenService.store(trelloToken, id, fullName);
     }
 
     function logOut() {
-      token.destroy();
+      tokenService.destroy();
       $log.debug("Logged out…");
     }
 
     function isLoggedIn() {
-      return (token.retrieve() != null);
+      return (tokenService.retrieve() != null);
     }
 
   }
