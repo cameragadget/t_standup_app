@@ -2,26 +2,38 @@ var Team = require("../models/team");
 
 module.exports = {
   create: create,
-  update: update
 }
 
 
+
+
+// CREATE TEAM
+
 function create(req, res, next) {
-  Team
-    .creat(req.body)
-    .then(function(team){
-      res.json({
-        success: true,
-        message: 'Successfully created team.',
-        team: team.boardName
-      })
-    }).catch(function(err) {
-      if (err.message.match(/E11000/)) {
-        err.status = 409;
-      } else {
-        err.status = 422;
-      }
-      next(err);
-    });
+  console.log(req.body);
+  console.log(req.user);
+
+  Team.findOne({trello_bid: req.body.trello_bid})
+  .then(function(team){
+    if(team){
+      // then go to next step
+      return team;
+    } else {
+      // create new team
+      // then go to next step
+      return Team.create({
+        creator:    req.user.trelloId,
+        trello_bid: req.body.trello_bid,
+        title:      req.body.title
+      });
+    }
+  })
+  .then(function(team) {
+    res.json({
+      msg:  "Team found or created!",
+      team: team
+    })
+  });
 };
+
 

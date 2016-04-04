@@ -1,14 +1,10 @@
 var mongoose = require('./database');
 
-var User = require('../models/user');
+var Team = require('../models/team');
 
-User
-  .remove({})
-  .then(function() {
-    console.log('All users removed…');
-
-    return mongoose.connection.close();
-  })
-  .then(function() {
+User.remove({}, function(err) {
+  Team.remove({}, function(err) {
+    mongoose.connection.close();
     process.exit(0);
-  });
+  })
+});

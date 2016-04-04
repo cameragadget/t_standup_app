@@ -13,6 +13,7 @@
     vm.tSignIn    = tSignIn;
     vm.logOut     = logOut;
     vm.isLoggedIn = isLoggedIn;
+    vm.getMyInfo   = getMyInfo;
 
 
 
@@ -39,14 +40,30 @@
       getMyInfo();
     }
 
-    function getMyInfo(){
-      var res = Trello.get("members/me", { fields: "username,fullName" });
-      $log.info(res);
-    }
-
     function isLoggedIn() {
       return (tokenService.retrieve() != null);
     }
+
+var myName;
+
+    function getMyInfo() {
+      Trello.get("members/me/", { fields: "fullName" })
+      .then(
+        function(myInfo) {
+        $log.info("Well hi there ", myInfo);
+        return myInfo;
+      },
+        function(err) {
+          console.log("Failure: ", err);
+          }
+        )
+    }
+
+
+
+
+
+
 
     $log.debug("SignInController loaded!");
   }
