@@ -1,8 +1,8 @@
 (function() {
-  'use strict';
+  "use strict";
 
   angular
-    .module('app')
+    .module("app")
     .factory("authService", authService);
 
   authService.$inject = ["$log", "tokenService", "trelloApiService", "$state"];
@@ -48,8 +48,11 @@
       tokenService.destroy();
       service.currentUser = null;
       $log.debug("Logged out…");
-      $state.go('welcome');
+      $state.go("welcome");
     }
+
+
+
 
   }
 

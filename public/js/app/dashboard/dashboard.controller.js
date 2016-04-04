@@ -1,8 +1,8 @@
 (function(){
-  'use strict';
+  "use strict";
 
   angular
-    .module('app')
+    .module("app")
     .controller("DashboardController", DashboardController);
 
   DashboardController.$inject = ["$log", "trelloApiService"];
@@ -16,22 +16,9 @@
 
     vm.selectedBoard = function(boardId){
       $log.info(boardId);
-
-
     };
 
 
-
-
-
-
-
-
-
-
   }
-
-
-
 
 })();

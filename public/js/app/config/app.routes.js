@@ -1,11 +1,11 @@
 (function(){
-  'use strict';
+  "use strict";
 
   angular
-    .module('app')
+    .module("app")
     .config(appRoutes);
 
-  appRoutes.$inject = ['$urlRouterProvider', '$stateProvider']
+  appRoutes.$inject = ["$urlRouterProvider", "$stateProvider"]
 
   function appRoutes($urlRouterProvider, $stateProvider) {
 
@@ -29,12 +29,11 @@
       });
 
 
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise("/");
+
+
 
   }
-
-
-
 
 
 })();

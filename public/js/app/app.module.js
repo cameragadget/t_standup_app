@@ -3,11 +3,11 @@
 
   angular
     .module("app", ["ui.router"])
-    .run(['$rootScope', '$state', 'authService',  function($rootScope, $state, authService) {
-      $rootScope.$on('$stateChangeStart', function(evt, toState) {
+    .run(["$rootScope", "$state", "authService",  function($rootScope, $state, authService) {
+      $rootScope.$on("$stateChangeStart", function(evt, toState) {
         if (toState.requireAuth && !authService.currentUser) {
           evt.preventDefault();
-          $state.go('welcome');
+          $state.go("welcome");
         }
       });
       // authService.logIn();

@@ -13,28 +13,26 @@
       myBoards:  [],
       getMyInfo: getMyInfo
     };
-    return service;
 
-    // var myBoards = [];
+    return service;
 
     function getBoards() {
       return Trello.get("members/me/boards", { fields: "name,id" })
       .then(
         function(boards) {
-        $log.info("boards found: ", boards);
-        service.myBoards = boards;
-        $log.info(service.myBoards);
-        $rootScope.$apply();
-      },
-      function(err) {
-      console.log("Failure: ", err);
-      }
-      )
-
-    }
+          $log.info("boards found: ", boards);
+          service.myBoards = boards;
+          $log.info(service.myBoards);
+          $rootScope.$apply();
+        },
+        function(err) {
+          console.log("Failure: ", err);
+        }
+      );
+    };
 
     function getBoardMembers(boardId) {
-    return Trello.get("/boards/" + boardId + "/memberships", {fields: "fullName,id"})
+      return Trello.get("/boards/" + boardId + "/memberships", {fields: "fullName,id"})
       .then(
         function(members) {
           console.log("members found: ", members);
@@ -54,16 +52,12 @@
           $log.info("Well hi there", myInfo.fullName);
           getBoards();
           return myInfo;
-
         },
         function(err) {
           console.log("Failure:", err);
         }
-      )
-    }
-
-
-
+      );
+    };
 
 
 

@@ -1,6 +1,6 @@
-var mongoose = require('./database');
+var mongoose = require("./database");
 
-var Team = require('../models/team');
+var Team = require("../models/team");
 
 User.remove({}, function(err) {
   Team.remove({}, function(err) {
