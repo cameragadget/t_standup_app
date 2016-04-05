@@ -65,8 +65,8 @@
     };
 
     function generateTeam(members) {
-      service.teamMemebers = [];
-      members.forEach(function(mems) {
+      service.teamMembers = [];
+      return members.forEach(function(mems) {
         return Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
         .then(
           function(newMem) {
@@ -85,8 +85,34 @@
             }
          );
       });
-      // $log.info("here's a shiny new team!", service.teamMembers);
-    }
+      $log.info("here's a shiny new team!", service.teamMembers);
+    };
+
+
+    // function generateTeam(members) {
+    //   service.teamMembers = [];
+    //   async.eachSeries(members, function(members, callback) {
+    //     Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
+    //     service.teamMembers.push();
+
+    //       },
+    //       function(err) {
+    //         console.log("Failure:", err);
+    //       }
+    //     )
+    //     .then(
+    //         function(memssss) {
+    //           $log.info("maybe now?", service.teamMembers);
+    //           return memssss;
+    //         }
+    //      );
+    //   });
+    //   $log.info("here's a shiny new team!", service.teamMembers);
+    // };
+
+
+
+
 
 
 

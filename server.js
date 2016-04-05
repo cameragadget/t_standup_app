@@ -6,6 +6,8 @@ var bodyParser   = require('body-parser');
 var debug        = require('debug')('app:http');
 var cookieParser = require('cookie-parser')
 
+require("dotenv").load();
+
 // Load local libraries.
 var env      = require('./config/environment'),
     mongoose = require('./config/database'),
@@ -17,6 +19,7 @@ var app = express();
 // Configure the application (and set it's title!).
 app.set('title', env.TITLE);
 app.set('safe-title', env.SAFE_TITLE);
+app.set('view engine', 'ejs');
 
 // Create local variables for use thoughout the application.
 app.locals.title = app.get('title');
@@ -38,9 +41,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Useful for debugging the state of requests.
 app.use(debugReq);
-
+console.log(env);
 // Defines all of our routes.
 app.use('/api', routes);
+app.use('/', function(req, res){
+  res.render("index", {
+    tKey: env.KEY
+  });
+})
 
 // Catches all 404 routes.
 app.use(function(req, res, next) {
