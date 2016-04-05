@@ -10,6 +10,7 @@
   function trelloApiService($log, tokenService, $rootScope) {
 
     var service = {
+      myBoardId: "",
       myBoards:  [],
       getMyInfo: getMyInfo,
       getBoardMembers: getBoardMembers,
@@ -35,6 +36,7 @@
     };
 
     function getBoardMembers(boardid) {
+      service.myBoardId = boardid;
       return Trello.get("/boards/" + boardid + "/memberships", { fields:"id" })
       .then(
         function(members) {
@@ -81,13 +83,6 @@
             console.log("Failure:", err);
           }
         )
-        // .then(
-        //     function(memss) {
-        //       $log.info("maybe now?", service.teamMembers);
-        //       return memss;
-        //     }
-         // );
-        // if (index === members.length) return promise;
       });
     };
 

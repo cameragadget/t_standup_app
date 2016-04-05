@@ -24,7 +24,9 @@
       })
       .state('standup', {
         url: "/standup",
-        templateUrl: "/js/app/layouts/standup.html",
+        templateUrl: "/js/app/standup/standup.html",
+        controller: "StandupController",
+        controllerAs: "vm",
         requireAuth: true
       });
 

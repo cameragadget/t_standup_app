@@ -1,0 +1,11 @@
+<h1>standup view</h1>
+
+<div class="{{vm.trello.myBoardId}}">
+<div class="panel panel-primary" ng-repeat="member in vm.trello.teamMembers">
+  <div class="panel-heading">{{member.fullName}}</div>
+  <div class="panel-body">
+    {{member.id}}
+  </div>
+</div>
+</div>
+
