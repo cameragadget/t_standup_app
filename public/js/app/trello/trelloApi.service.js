@@ -66,27 +66,31 @@
 
     function generateTeam(members) {
       service.teamMembers = [];
-      return members.forEach(function(mems) {
-        return Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
+      members.forEach(function(mems) {
+       Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
         .then(
           function(newMem) {
             $log.info("Well hi there", newMem.fullName);
             service.teamMembers.push(newMem);
-            return newMem;
+            if (service.teamMembers.length === members.length){
+              $log.info(service.teamMembers);
+              return service.teamMembers;
+            };
           },
           function(err) {
             console.log("Failure:", err);
           }
         )
-        .then(
-            function(memssss) {
-              $log.info("maybe now?", service.teamMembers);
-              return memssss;
-            }
-         );
+        // .then(
+        //     function(memss) {
+        //       $log.info("maybe now?", service.teamMembers);
+        //       return memss;
+        //     }
+         // );
+        // if (index === members.length) return promise;
       });
-      $log.info("here's a shiny new team!", service.teamMembers);
     };
+
 
 
     // function generateTeam(members) {
