@@ -11,13 +11,16 @@
 
     var service = {
       myBoards:  [],
-      getMyInfo: getMyInfo
+      getMyInfo: getMyInfo,
+      getBoardMembers: getBoardMembers,
+      boardMembers: [],
+      teamMembers: []
     };
 
     return service;
 
     function getBoards() {
-      return Trello.get("members/me/boards", { fields: "name,id" })
+      return Trello.get("members/me/boards", { fields:"name,id" })
       .then(
         function(boards) {
           $log.info("boards found: ", boards);
@@ -31,12 +34,14 @@
       );
     };
 
-    function getBoardMembers(boardId) {
-      return Trello.get("/boards/" + boardId + "/memberships", {fields: "fullName,id"})
+    function getBoardMembers(boardid) {
+      return Trello.get("/boards/" + boardid + "/memberships", { fields:"id" })
       .then(
         function(members) {
-          console.log("members found: ", members);
-          return members;
+          $log.info("members found: ", members);
+          service.boardMembers = members;
+          $log.info(service.boardMembers);
+          generateTeam(service.boardMembers);
         },
         function(err) {
           console.log("Failure: ", err);
@@ -59,7 +64,29 @@
       );
     };
 
-
+    function generateTeam(members) {
+      service.teamMemebers = [];
+      members.forEach(function(mems) {
+        return Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
+        .then(
+          function(newMem) {
+            $log.info("Well hi there", newMem.fullName);
+            service.teamMembers.push(newMem);
+            return newMem;
+          },
+          function(err) {
+            console.log("Failure:", err);
+          }
+        )
+        .then(
+            function(memssss) {
+              $log.info("maybe now?", service.teamMembers);
+              return memssss;
+            }
+         );
+      });
+      // $log.info("here's a shiny new team!", service.teamMembers);
+    }
 
 
 
