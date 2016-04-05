@@ -5,12 +5,13 @@
     .module("app")
     .factory("trelloApiService", trelloApiService);
 
-  trelloApiService.$inject = ["$log", "tokenService", "$rootScope"];
+  trelloApiService.$inject = ["$log", "tokenService", "teamDataService", "$rootScope"];
 
-  function trelloApiService($log, tokenService, $rootScope) {
+  function trelloApiService($log, tokenService, teamDataService, $rootScope) {
 
     var service = {
       myBoardId: "",
+      myBoardName: "",
       myBoards:  [],
       getMyInfo: getMyInfo,
       getBoardMembers: getBoardMembers,
@@ -35,15 +36,17 @@
       );
     };
 
-    function getBoardMembers(boardid) {
-      service.myBoardId = boardid;
-      return Trello.get("/boards/" + boardid + "/memberships", { fields:"id" })
+    function getBoardMembers(boardId, boardName) {
+      service.myBoardId = boardId;
+      service.myBoardName = boardName;
+      teamDataService.createTeam(boardId, boardName);
+      return Trello.get("/boards/" + boardId + "/memberships", { fields:"id" })
       .then(
         function(members) {
           $log.info("members found: ", members);
           service.boardMembers = members;
           $log.info(service.boardMembers);
-          generateTeam(service.boardMembers);
+          generateTeamMembers(service.boardMembers);
         },
         function(err) {
           console.log("Failure: ", err);
@@ -66,7 +69,7 @@
       );
     };
 
-    function generateTeam(members) {
+    function generateTeamMembers(members) {
       service.teamMembers = [];
       members.forEach(function(mems) {
        Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
@@ -85,6 +88,7 @@
         )
       });
     };
+
 
 
 
