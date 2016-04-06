@@ -5,9 +5,9 @@
     .module("app")
     .factory("trelloApiService", trelloApiService);
 
-  trelloApiService.$inject = ["$log", "tokenService", "teamDataService", "$rootScope"];
+  trelloApiService.$inject = ["$log", "tokenService", "$rootScope"];
 
-  function trelloApiService($log, tokenService, teamDataService, $rootScope) {
+  function trelloApiService($log, tokenService, $rootScope) {
 
     var service = {
       myBoardId: "",
@@ -39,7 +39,7 @@
     function getBoardMembers(boardId, boardName) {
       service.myBoardId = boardId;
       service.myBoardName = boardName;
-      teamDataService.createTeam(boardId, boardName);
+      // teamDataService.createTeam(boardId, boardName);
       return Trello.get("/boards/" + boardId + "/memberships", { fields:"id" })
       .then(
         function(members) {
@@ -88,31 +88,6 @@
         )
       });
     };
-
-
-
-
-    // function generateTeam(members) {
-    //   service.teamMembers = [];
-    //   async.eachSeries(members, function(members, callback) {
-    //     Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
-    //     service.teamMembers.push();
-
-    //       },
-    //       function(err) {
-    //         console.log("Failure:", err);
-    //       }
-    //     )
-    //     .then(
-    //         function(memssss) {
-    //           $log.info("maybe now?", service.teamMembers);
-    //           return memssss;
-    //         }
-    //      );
-    //   });
-    //   $log.info("here's a shiny new team!", service.teamMembers);
-    // };
-
 
 
 

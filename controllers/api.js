@@ -1,6 +1,9 @@
 var Team = require("../models/team");
-var Meeting = require("../models/team/meeting");
-var Report = require("../models/team/meeting/report");
+
+var Meeting;
+
+var Report;
+
 
 
 

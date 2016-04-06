@@ -5,34 +5,37 @@
     .module("app")
     .factory("teamDataService", teamDataService);
 
-  teamDataService.$inject = ["$http", "authService"];
+  teamDataService.$inject = ["$log", "$http", "trelloApiService", "authService"];
 
-  function teamDataService($http, auth) {
+  function teamDataService($log, $http, trelloApiService, auth) {
 
     var service = {
-      createTeam: createTeam
-    }
-
-    var teamFactory = {
+      createTeam: createTeam,
       team: {}
-    };
-
-    return service
-
-  function createTeam(boardName, boardId){
-    var teamData = {
-        initiator:      auth.currentUser.fullName,
-        initiatorId:    auth.currentUser.id,
-        boardName:      boardName,
-        trelloBid:      boardId
     }
-    teamFactory.create(teamData);
-  }
 
-  teamFactory.create = function(teamData) {
-    return $http.post('/api/teams/', teamData);
-  }
+    function createTeam(boardName, boardId){
+      var teamData = {
+          initiator:      auth.currentUser.fullName,
+          initiatorId:    auth.currentUser.id,
+          boardName:      boardName,
+          trelloBid:      boardId
+      }
+      persistTeam(teamData);
+    }
 
+    return service;
+
+    // helper functions
+
+    function persistTeam(teamData) {
+       $http.post('/api/teams/', teamData)
+       .then(function(team) {
+
+       }, function(err) {
+
+       })
+    }
 
  }
 

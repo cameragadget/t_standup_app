@@ -1,11 +1,35 @@
 <h1>standup view</h1>
 
-<div class="{{vm.trello.myBoardId}}">
-<div class="panel panel-primary" ng-repeat="member in vm.trello.teamMembers">
-  <div class="panel-heading">{{member.fullName}}</div>
-  <div class="panel-body">
-    {{member.id}}
-  </div>
-</div>
-</div>
+
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="{{vm.trello.myBoardId}}">
+          <div class="panel panel-primary" ng-repeat="member in vm.trello.teamMembers">
+            <div id="{{member.id}}" class="panel-heading">
+              {{member.fullName}}
+            </div>
+            <div class="panel-body">
+              <div class="dropdown col-md-5">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  My Current Sprint <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                  <li>LIST1</li>
+                  <li>LIST2</li>
+                  <li>LIST3</li>
+                  <li>LIST4</li>
+                  <li>LIST5</li>
+                </ul>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
