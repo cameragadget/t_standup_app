@@ -11,7 +11,7 @@ var Report;
 // CREATE TEAM
 
 function createTeam(req, res, next) {
-  console.log(req.body);
+  console.log("hello?");
 
   Team.findOne({trelloBid: req.body.trelloBid})
   .then(function(team){

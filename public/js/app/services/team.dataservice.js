@@ -7,35 +7,66 @@
 
   teamDataService.$inject = ["$log", "$http", "trelloApiService", "authService"];
 
-  function teamDataService($log, $http, trelloApiService, auth) {
+  function teamDataService($log, $http, trelloApiService, authService) {
 
     var service = {
       createTeam: createTeam,
-      team: {}
+      team: {},
+      trelloApiService: trelloApiService,
+      generateANewTeam: generateANewTeam,
+      boardMembers: trelloApiService.boardMembers
     }
 
-    function createTeam(boardName, boardId){
+
+
+  function generateANewTeam(boardid, boardname){
+    trelloApiService.getBoardMembers(boardid, boardname)
+    .then(function(){
+      createTeam();
+      $log.info(authService.currentUser.fullName)
+      $log.info(authService.currentUser.id)
+      $log.info(trelloApiService.myBoardName)
+      $log.info(trelloApiService.myBoardId)
+    });
+
+      // run the make new team call to my DB
+      // that passes in board.id, board.name
+      // and then returns to the standup view
+      // that team.
+      // will literally be a blank page that says
+      // HI TEAM! START A NEW MEETING!
+      $log.info(boardid, boardname);
+  }
+
+
+ // helper functions
+    function persistTeam(teamData) {
+      // var newTeamData = JSON.stringify(teamData);
+      $log.info("sending data");
+       $http.post('/api/teams', teamData)
+       .then(function(team) {
+        $log.info("team found", team);
+       }, function(err) {
+        $log.info(err);
+       })
+    }
+
+
+    function createTeam(){
+      $log.info("creating team")
       var teamData = {
-          initiator:      auth.currentUser.fullName,
-          initiatorId:    auth.currentUser.id,
-          boardName:      boardName,
-          trelloBid:      boardId
+          initiator:      authService.currentUser.fullName,
+          initiatorId:    authService.currentUser.id,
+          boardName:      trelloApiService.myBoardName,
+          trelloBid:      trelloApiService.myBoardId
       }
       persistTeam(teamData);
     }
 
     return service;
 
-    // helper functions
 
-    function persistTeam(teamData) {
-       $http.post('/api/teams/', teamData)
-       .then(function(team) {
 
-       }, function(err) {
-
-       })
-    }
 
  }
 

@@ -5,14 +5,16 @@
     .module("app")
     .controller("DashboardController", DashboardController);
 
-  DashboardController.$inject = ["$log", "trelloApiService"];
+  DashboardController.$inject = ["$log", "trelloApiService", "teamDataService"];
 
-  function DashboardController($log, trello) {
+  function DashboardController($log, trelloApiService, teamDataService) {
     $log.info("DashboardController loaded");
 
     var vm = this;
 
-    vm.trello = trello;
+    vm.trello = trelloApiService;
+
+    vm.dataService = teamDataService;
 
     vm.selectedBoard = function(boardId){
       $log.info(boardId);

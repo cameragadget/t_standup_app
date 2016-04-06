@@ -7,12 +7,12 @@
 
   StandupController.$inject = ["$log", "trelloApiService"];
 
-  function StandupController($log, trello) {
+  function StandupController($log, trelloApiService) {
     $log.info("StandupController loaded");
 
     var vm = this;
 
-    vm.trello = trello;
+    vm.trello = trelloApiService;
 
 
   }

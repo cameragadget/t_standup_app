@@ -23,6 +23,7 @@ var meetingSchema = new mongoose.Schema({
   createdAt:     { type: Date,   default: Date.now },
   boardName:     { type: String, required: true },
   trelloBid:     { type: String, required: true },
+  members:       {type: [] },
   reports:         [reportSchema]
 });
 

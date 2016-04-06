@@ -8,7 +8,7 @@
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
    <li ng-repeat="board in vm.trello.myBoards">
-      <a href="#" ng-click="vm.trello.getBoardMembers(board.id, board.name)">{{board.name}}</a>
+      <a href="#" ng-click="vm.dataService.generateANewTeam(board.id, board.name)">{{board.name}}</a>
    </li>
   </ul>
 </div>
