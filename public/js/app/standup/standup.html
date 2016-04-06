@@ -11,7 +11,7 @@
             <div id="{{member.id}}" class="panel-heading">
               {{member.fullName}}
             </div>
-            <div class="dropdown">
+            <div ng-hide="vm.dataService.sprintSelected" class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 My Trello Lists <span class="caret"></span>
               </button>
@@ -22,7 +22,7 @@
               </ul>
             </div>
 
-            <div class="dropdown" ng-show="vm.dataService.cardsFound">
+            <div class="dropdown" ng-show="(vm.dataService.cardsFound && !vm.dataService.sprintSelected)">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sprint Cards <span class="caret"></span>
               </button>
@@ -34,8 +34,20 @@
             </div>
 
 
+
+
             <div class="panel-body">
               <form class="form-horizontal" role="form">
+
+
+                <div ng-show="vm.dataService.sprintSelected" class="form-group">
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
+                      placeholder={{vm.dataService.sprint.name}} />
+                  </div>
+                </div>
+
+
                 <div class="form-group">
                   <label for="inputBlocker" class="col-sm-3 control-label">Blockers</label>
                   <div class="col-sm-9">

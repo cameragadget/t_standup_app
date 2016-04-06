@@ -18,7 +18,9 @@
       listLinkWorks: listLinkWorks,
       generateCards: trelloApiService.generateCards,
       cardsFound: false,
-      selectCard: selectCard
+      selectCard: selectCard,
+      sprint: {},
+      sprintSelected: false
     }
 
 
@@ -27,6 +29,9 @@
 
   function selectCard(id, name) {
     $log.info("card selected:", name);
+    service.sprint = {id, name};
+    service.sprintSelected = true;
+
   };
 
   function listLinkWorks(id, name) {
