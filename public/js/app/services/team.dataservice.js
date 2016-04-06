@@ -23,10 +23,10 @@
     trelloApiService.getBoardMembers(boardid, boardname)
     .then(function(){
       createTeam();
-      $log.info(authService.currentUser.fullName)
-      $log.info(authService.currentUser.id)
-      $log.info(trelloApiService.myBoardName)
-      $log.info(trelloApiService.myBoardId)
+      // $log.info(authService.currentUser.fullName)
+      // $log.info(authService.currentUser.id)
+      // $log.info(trelloApiService.myBoardName)
+      // $log.info(trelloApiService.myBoardId)
     });
 
       // run the make new team call to my DB
@@ -35,7 +35,7 @@
       // that team.
       // will literally be a blank page that says
       // HI TEAM! START A NEW MEETING!
-      $log.info(boardid, boardname);
+      // $log.info(boardid, boardname);
   }
 
 
@@ -45,7 +45,7 @@
       $log.info("sending data");
        $http.post('/api/teams', teamData)
        .then(function(team) {
-        $log.info("team found", team);
+        $log.info("this team was sent as", team);
        }, function(err) {
         $log.info(err);
        })

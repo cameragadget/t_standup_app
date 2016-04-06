@@ -42,8 +42,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Useful for debugging the state of requests.
 app.use(debugReq);
 console.log(env);
+
 // Defines all of our routes.
-app.use('/api', routes);
+app.use('/', routes);
 app.use('/', function(req, res){
   res.render("index", {
     tKey: env.KEY
