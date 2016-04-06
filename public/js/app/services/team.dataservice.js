@@ -20,10 +20,25 @@
       cardsFound: false,
       selectCard: selectCard,
       sprint: {},
-      sprintSelected: false
+      sprintSelected: false,
+      teams: [],
+      getTeams: getTeams
     }
 
 
+// $scope.$on('$stateChangeSuccess', function () {
+//   getTeams();
+//   // do something
+// });
+
+  function getTeams() {
+      $http.get('/api/teams').then(function(response) {
+        service.teams = response.data;
+        $log.info("here are your teams", service.teams);
+      }, function(errRes) {
+        console.error('Error finding teams!', errRes);
+      });
+    }
 
 
 
