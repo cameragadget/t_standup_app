@@ -44,8 +44,8 @@ app.use(debugReq);
 console.log(env);
 
 // Defines all of our routes.
-app.use('/', routes);
-app.use('/', function(req, res){
+app.use('/api', routes);
+app.get('/', function(req, res){
   res.render("index", {
     tKey: env.KEY
   });

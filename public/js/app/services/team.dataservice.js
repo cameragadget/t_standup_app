@@ -5,9 +5,9 @@
     .module("app")
     .factory("teamDataService", teamDataService);
 
-  teamDataService.$inject = ["$log", "$http", "trelloApiService", "authService"];
+  teamDataService.$inject = ["$state", "$log", "$http", "trelloApiService", "authService"];
 
-  function teamDataService($log, $http, trelloApiService, authService) {
+  function teamDataService($state, $log, $http, trelloApiService, authService) {
 
     var service = {
       createTeam: createTeam,
@@ -23,6 +23,7 @@
     trelloApiService.getBoardMembers(boardid, boardname)
     .then(function(){
       createTeam();
+       $state.go('standup');
       // $log.info(authService.currentUser.fullName)
       // $log.info(authService.currentUser.id)
       // $log.info(trelloApiService.myBoardName)
