@@ -22,14 +22,17 @@
       sprint: {},
       sprintSelected: false,
       teams: [],
-      getTeams: getTeams
+      getTeams: getTeams,
+      filteredTeams: []
     }
 
 
-// $scope.$on('$stateChangeSuccess', function () {
-//   getTeams();
-//   // do something
-// });
+
+
+  // function filterTeams(teams, boards){
+  //   service.filteredTeams = _.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')
+  // }
+
 
   function getTeams() {
       $http.get('/api/teams').then(function(response) {

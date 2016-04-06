@@ -19,7 +19,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="panel panel-info col-md-6" ng-repeat="team in vm.dataService.teams">
+    <div class="panel panel-info col-md-6" ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')">
       <div class="panel-body">{{team.boardName}}</div>
       <div class="panel-body">{{team.trelloBid}}</div>
     </div>

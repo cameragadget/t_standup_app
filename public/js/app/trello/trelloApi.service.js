@@ -20,7 +20,8 @@
       generateLists: generateLists,
       lists: [],
       generateCards: generateCards,
-      cards: []
+      cards: [],
+      myFixedBoards: []
     };
 
 
@@ -41,12 +42,15 @@
     };
 
     function getBoards() {
-      return Trello.get("members/me/boards", { fields:"name,id" })
+      return Trello.get("members/me/boards", {})
       .then(
         function(boards) {
-          // $log.info("boards found: ", boards);
+          $log.info("boards found: ", boards);
           service.myBoards = boards;
-          // $log.info(service.myBoards);
+          boards.forEach(function(board){
+            service.myFixedBoards.push({trelloBid: board.id});
+            });
+          $log.info(service.myFixedBoards);
           $rootScope.$apply();
         },
         function(err) {

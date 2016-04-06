@@ -16,6 +16,8 @@
 
     vm.dataService = teamDataService;
 
+    vm._ = _;
+
 
   }
 
