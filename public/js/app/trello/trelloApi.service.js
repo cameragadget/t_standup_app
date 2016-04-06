@@ -16,8 +16,13 @@
       getMyInfo: getMyInfo,
       getBoardMembers: getBoardMembers,
       boardMembers: [],
-      teamMembers: []
+      teamMembers: [],
+      generateLists: generateLists,
+      lists: [],
+      generateCards: generateCards,
+      cards: []
     };
+
 
     return service;
 
@@ -66,6 +71,7 @@
           service.boardMembers = members;
           // $log.info(service.boardMembers);
           generateTeamMembers(service.boardMembers);
+          generateLists(boardId)
         },
         function(err) {
           console.log("Failure: ", err);
@@ -93,6 +99,39 @@
         )
       });
     };
+
+
+    function generateLists(boardId) {
+      service.lists = [],
+        Trello.get("/boards/" + boardId + "/lists")
+      .then(
+        function(list) {
+          $log.info("Lists found: ", list);
+          service.lists = list;
+        return list;
+      },
+        function(err) {
+          console.log("Failure: ", err);
+        }
+      );
+    }
+
+    function generateCards(listId) {
+      service.cards = [],
+        Trello.get("/lists/" + listId + "/cards")
+      .then(
+        function(card) {
+          $log.info("Cards found: ", card);
+            service.cards = card;
+            $log.info(service.cards);
+            $rootScope.$apply();
+            return card;
+        },
+          function(err) {
+            console.log("Failure: ", err);
+          }
+        );
+    }
 
 
 

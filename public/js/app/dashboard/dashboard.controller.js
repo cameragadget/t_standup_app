@@ -16,10 +16,6 @@
 
     vm.dataService = teamDataService;
 
-    vm.selectedBoard = function(boardId){
-      $log.info(boardId);
-    };
-
 
   }
 

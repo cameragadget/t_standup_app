@@ -11,19 +11,26 @@
             <div id="{{member.id}}" class="panel-heading">
               {{member.fullName}}
             </div>
-            <div class="panel-body">
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle col-sm-offset-1 col-sm-10" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  My Current Sprint <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-                  <li>LIST1</li>
-                  <li>LIST2</li>
-                  <li>LIST3</li>
-                  <li>LIST4</li>
-                  <li>LIST5</li>
-                </ul>
-              </div>
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                My Trello Lists <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li ng-repeat="list in vm.trello.lists">
+                  <a ng-click="vm.dataService.listLinkWorks(list.id, list.name)">{{list.name}}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="dropdown" ng-show="vm.dataService.cardsFound">
+              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sprint Cards <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li ng-repeat="card in vm.trello.cards">
+                  <a ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
+                </li>
+              </ul>
             </div>
 
 

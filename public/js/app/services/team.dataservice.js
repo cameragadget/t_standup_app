@@ -14,10 +14,26 @@
       team: {},
       trelloApiService: trelloApiService,
       generateANewTeam: generateANewTeam,
-      boardMembers: trelloApiService.boardMembers
+      boardMembers: trelloApiService.boardMembers,
+      listLinkWorks: listLinkWorks,
+      generateCards: trelloApiService.generateCards,
+      cardsFound: false,
+      selectCard: selectCard
     }
 
 
+
+
+
+  function selectCard(id, name) {
+    $log.info("card selected:", name);
+  };
+
+  function listLinkWorks(id, name) {
+    $log.info("link list works", id, name)
+    trelloApiService.generateCards(id);
+    service.cardsFound = true
+  }
 
   function generateANewTeam(boardid, boardname){
     trelloApiService.getBoardMembers(boardid, boardname)
