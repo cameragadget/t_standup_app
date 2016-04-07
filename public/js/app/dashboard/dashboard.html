@@ -3,7 +3,7 @@
 
 <div class="dropdown">
   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    My Trello Boards
+    Don't see your team? Start a new one!
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -13,15 +13,12 @@
   </ul>
 </div>
 
-<div class="btn">
-  <button type="button button-danger" class="btn btn-default" ng-click="vm.dataService.getTeams();">getMyTeams</button>
-</div>
 
 <div class="container">
   <div class="row">
-    <div class="panel panel-info col-md-6" ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')">
-      <div class="panel-body">{{team.boardName}}</div>
-      <div class="panel-body">{{team.trelloBid}}</div>
+    <div ng-click="vm.dataService.showTeam(team._id)" class="panel panel-info col-md-5" ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')">
+        <div class="panel-body">{{team.boardName}}</div>
+        <div class="panel-body">{{team.trelloBid}}</div>
     </div>
   </div>
 </div>

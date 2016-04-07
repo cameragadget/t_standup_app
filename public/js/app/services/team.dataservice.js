@@ -5,9 +5,9 @@
     .module("app")
     .factory("teamDataService", teamDataService);
 
-  teamDataService.$inject = ["$state", "$log", "$http", "trelloApiService", "authService"];
+  teamDataService.$inject = ["$state", "$log", "$http", "trelloApiService", "authService", "$rootScope"];
 
-  function teamDataService($state, $log, $http, trelloApiService, authService) {
+  function teamDataService($state, $log, $http, trelloApiService, authService, $rootScope) {
 
     var service = {
       createTeam: createTeam,
@@ -23,69 +23,70 @@
       sprintSelected: false,
       teams: [],
       getTeams: getTeams,
-      filteredTeams: []
+      filteredTeams: [],
+      selectedTeam: {},
+      showTeam: showTeam
     }
 
 
 
-
-  // function filterTeams(teams, boards){
-  //   service.filteredTeams = _.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')
-  // }
-
-
-  function getTeams() {
-      $http.get('/api/teams').then(function(response) {
-        service.teams = response.data;
-        $log.info("here are your teams", service.teams);
+    function showTeam(teamId){
+      console.log("TEAM ID:", teamId);
+      service.selectedTeam = {};
+      $http.get('api/teams/' + teamId).then(function(response) {
+        service.selectedTeam = response.data;
+        console.log(response.data);
+        $log.info("you chose this team:", service.selectedTeam);
+        return service.selectedTeam;
       }, function(errRes) {
-        console.error('Error finding teams!', errRes);
+        console.error("error finding that team sir!", errRes);
+      })
+      .then(function(data){
+        trelloApiService.getBoardMembers(data.trelloBid)
+      $state.go('standup');
+      $rootScope.$apply();
+      });
+    }
+
+    function getTeams() {
+        $http.get('/api/teams').then(function(response) {
+          service.teams = response.data;
+          $log.info("here are your teams", service.teams);
+        }, function(errRes) {
+          console.error('Error finding teams!', errRes);
+        });
+      }
+
+
+
+    function selectCard(id, name) {
+      $log.info("card selected:", name);
+      service.sprint = {id, name};
+      service.sprintSelected = true;
+
+    };
+
+    function listLinkWorks(id, name) {
+      $log.info("link list works", id, name)
+      trelloApiService.generateCards(id);
+      service.cardsFound = true
+    }
+
+    function generateANewTeam(boardid, boardname){
+      trelloApiService.getBoardMembers(boardid, boardname)
+      .then(function(){
+        createTeam();
+         $state.go('standup');
       });
     }
 
 
-
-  function selectCard(id, name) {
-    $log.info("card selected:", name);
-    service.sprint = {id, name};
-    service.sprintSelected = true;
-
-  };
-
-  function listLinkWorks(id, name) {
-    $log.info("link list works", id, name)
-    trelloApiService.generateCards(id);
-    service.cardsFound = true
-  }
-
-  function generateANewTeam(boardid, boardname){
-    trelloApiService.getBoardMembers(boardid, boardname)
-    .then(function(){
-      createTeam();
-       $state.go('standup');
-      // $log.info(authService.currentUser.fullName)
-      // $log.info(authService.currentUser.id)
-      // $log.info(trelloApiService.myBoardName)
-      // $log.info(trelloApiService.myBoardId)
-    });
-
-      // run the make new team call to my DB
-      // that passes in board.id, board.name
-      // and then returns to the standup view
-      // that team.
-      // will literally be a blank page that says
-      // HI TEAM! START A NEW MEETING!
-      // $log.info(boardid, boardname);
-  }
-
-
  // helper functions
     function persistTeam(teamData) {
-      // var newTeamData = JSON.stringify(teamData);
       $log.info("sending data");
        $http.post('/api/teams', teamData)
-       .then(function(team) {
-        $log.info("this team was sent as", team);
+       .then(function(response) {
+        $log.info("this team was sent as", response);
        }, function(err) {
         $log.info(err);
        })
@@ -103,10 +104,12 @@
       persistTeam(teamData);
     }
 
+
+
+
+
+
     return service;
-
-
-
 
  }
 

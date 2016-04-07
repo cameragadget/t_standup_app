@@ -41,7 +41,7 @@ function updateTeam(req, res, next) {
   var changes = req.body;
 
   Team
-  .findById(teamId)
+  .findOne(teamId)
   .then(function(team) {
     return team.update(changes);
   })

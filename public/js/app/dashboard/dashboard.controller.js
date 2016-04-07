@@ -18,7 +18,11 @@
 
     vm._ = _;
 
+    teamDataService.getTeams();
+
 
   }
+
+
 
 })();
