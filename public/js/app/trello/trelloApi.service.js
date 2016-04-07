@@ -60,13 +60,15 @@
     };
 
 
-//// on board selection
+//// on board selection get ID's (only available info) of all team members
+//// *** runs generateTeamMembers and generateLists functions
+//// createTeam has been commented out to run independently
 
 
 
-    function getBoardMembers(boardId, boardName) {
+    function getBoardMembers(boardId) {
       service.myBoardId = boardId;
-      service.myBoardName = boardName;
+      $log.info("service myBoardId", service.myBoardId)
       // teamDataService.createTeam(boardId, boardName);
       return Trello.get("/boards/" + boardId + "/memberships", { fields:"id" })
       .then(
@@ -75,7 +77,7 @@
           service.boardMembers = members;
           // $log.info(service.boardMembers);
           generateTeamMembers(service.boardMembers);
-          generateLists(boardId)
+          generateLists(boardId);
         },
         function(err) {
           console.log("Failure: ", err);
@@ -83,6 +85,8 @@
       );
     };
 
+
+//// insert the array of member id #'s to retrieve their full info
 
     function generateTeamMembers(members) {
       service.teamMembers = [];
@@ -105,6 +109,10 @@
     };
 
 
+
+//// from current SELECTED BOARD, get list of all trello lists on that board
+
+
     function generateLists(boardId) {
       service.lists = [],
         Trello.get("/boards/" + boardId + "/lists")
@@ -120,21 +128,24 @@
       );
     }
 
+/// from selected list from selected board, get list of all cards in that list
+
+
     function generateCards(listId) {
       service.cards = [],
         Trello.get("/lists/" + listId + "/cards")
       .then(
         function(card) {
           $log.info("Cards found: ", card);
-            service.cards = card;
-            $log.info(service.cards);
-            $rootScope.$apply();
-            return card;
+          service.cards = card;
+          $log.info(service.cards);
+          $rootScope.$apply();
+          return card;
         },
-          function(err) {
-            console.log("Failure: ", err);
-          }
-        );
+        function(err) {
+          console.log("Failure: ", err);
+        }
+      );
     }
 
 
@@ -143,4 +154,6 @@
 
 
   }
+
+
 })();

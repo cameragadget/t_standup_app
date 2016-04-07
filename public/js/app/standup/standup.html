@@ -2,7 +2,7 @@
 
 <h3>This Virtual Stand Up Team Was Created By {{vm.dataService.selectedTeam.initiator}}</h3>
 
-<button type="submit" class="btn btn-default">Start A New Meeting</button>
+<button type="submit" ng-click="vm.dataService.startNewMeeting(vm.dataService.selectedTeam.trelloBid)"class="btn btn-default">Start A New Meeting</button>
 
 
 

@@ -5,12 +5,14 @@
     .module("app")
     .controller("MainController", MainController);
 
-  MainController.$inject = ["$log", "authService"];
+  MainController.$inject = ["$log", "authService", "teamDataService"];
 
-  function MainController($log, authService) {
+  function MainController($log, authService, teamDataService) {
     var vm = this;
 
     vm.authService = authService;
+
+    vm.dataService = teamDataService;
 
     vm.logIn = function() {
       vm.authService.logIn();

@@ -25,10 +25,71 @@
       getTeams: getTeams,
       filteredTeams: [],
       selectedTeam: {},
-      showTeam: showTeam
+      teamSelected: false,
+      showTeam: showTeam,
+      startNewMeeting: startNewMeeting,
+      selectedBoard: {},
+      myBoardId: trelloApiService.myBoardId
     }
 
 
+
+
+///// this will create an entire new meeting when complete
+
+
+    function createMeetingReports(meeting) {
+      meeting.members.forEach(function(member){
+        createNewReport(member)
+      });
+    }
+
+
+    function addReportToMeeting(report) {
+      meeting.reports.push(report)
+    }
+
+    function createNewMeetingSchema(selectedTeam) {
+      var meeting = {
+          createdAt:  Date.now,
+          boardName:  service.selectedTeam.name,
+          trelloBid:  service.selectedTeam.trelloBid,
+          members:    service.boardMembers,
+          reports: {}
+      }
+      return meeting;
+    }
+
+
+
+    function createNewReport(member) {
+      var report = {
+          createdAt:    Date.now ,
+          memberId:     member.id,
+          memberName:   member.fullName,
+          current:      "",
+          currentId:    "",
+          blocker:      "blocker",
+          outlook:      "outlook",
+          trelloBid:    service.selectedTeam.trelloBid,
+          submitted:    false
+      }
+      return report
+    }
+
+
+
+    function startNewMeeting(boardId) {
+      service.sprintSelected = false;
+      trelloApiService.getBoardMembers(boardId)
+      .then
+    }
+
+
+
+/////// on click on team from dashboard list of teams, moves to
+//// standup page and changes ng-hide for HTML elements
+///// (used to also run the entire getboardmembers function)
 
     function showTeam(teamId){
       console.log("TEAM ID:", teamId);
@@ -42,11 +103,15 @@
         console.error("error finding that team sir!", errRes);
       })
       .then(function(data){
-        trelloApiService.getBoardMembers(data.trelloBid)
+        // trelloApiService.getBoardMembers(data.trelloBid);
+      service.teamSelected = true;
       $state.go('standup');
       $rootScope.$apply();
       });
     }
+
+
+//// gets teams objects from my database
 
     function getTeams() {
         $http.get('/api/teams').then(function(response) {
@@ -58,6 +123,7 @@
       }
 
 
+/////
 
     function selectCard(id, name) {
       $log.info("card selected:", name);
@@ -72,12 +138,19 @@
       service.cardsFound = true
     }
 
+
+
+///// generate a new team that does not exist yet on the database
+
     function generateANewTeam(boardid, boardname){
-      trelloApiService.getBoardMembers(boardid, boardname)
-      .then(function(){
+      service.selectedBoard.trelloBid = boardid;
+      service.selectedBoard.boardName = boardname;
+      service.myBoardId = boardid;
+      // trelloApiService.getBoardMembers(boardid, boardname)
+      // .then(function(){
         createTeam();
          $state.go('standup');
-      });
+      // });
     }
 
 
@@ -98,13 +171,11 @@
       var teamData = {
           initiator:      authService.currentUser.fullName,
           initiatorId:    authService.currentUser.id,
-          boardName:      trelloApiService.myBoardName,
-          trelloBid:      trelloApiService.myBoardId
+          boardName:      service.selectedBoard.boardName,
+          trelloBid:      service.selectedBoard.trelloBid
       }
       persistTeam(teamData);
     }
-
-
 
 
 

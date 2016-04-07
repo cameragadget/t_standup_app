@@ -2,8 +2,9 @@
 html,
 body {
   box-sizing: border-box;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif;
 }
+
 
 .navbar {
   background-color: #246C60;
