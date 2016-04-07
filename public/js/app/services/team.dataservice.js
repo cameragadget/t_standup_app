@@ -10,30 +10,32 @@
   function teamDataService($state, $log, $http, trelloApiService, authService, $rootScope) {
 
     var service = {
-      createTeam: createTeam,
-      team: {},
-      trelloApiService: trelloApiService,
-      generateANewTeam: generateANewTeam,
-      boardMembers: trelloApiService.boardMembers,
-      listLinkWorks: listLinkWorks,
-      generateCards: trelloApiService.generateCards,
-      cardsFound: false,
-      selectCard: selectCard,
-      sprint: {},
+      sprint:         {},
       sprintSelected: false,
-      teams: [],
-      getTeams: getTeams,
-      filteredTeams: [],
-      selectedTeam: {},
-      teamSelected: false,
-      showTeam: showTeam,
-      startNewMeeting: startNewMeeting,
+
+      teams:         [],
+      // filteredTeams: [],
+
+      selectedTeam:  {},
+      teamSelected:  false,
+
       selectedBoard: {},
-      myBoardId: trelloApiService.myBoardId
+
+      cardsFound:    false,
+
+      getTeams:         getTeams,
+      showTeam:         showTeam,
+      createTeam:       createTeam,
+      generateANewTeam: generateANewTeam,
+
+      generateCards:    generateCards,
+      selectCard:       selectCard,
+
+      startNewMeeting:  startNewMeeting,
+
+      trelloApiService: trelloApiService,
+      myBoardId:        trelloApiService.myBoardId
     }
-
-
-
 
 ///// this will create an entire new meeting when complete
 
@@ -132,7 +134,7 @@
 
     };
 
-    function listLinkWorks(id, name) {
+    function generateCards(id, name) {
       $log.info("link list works", id, name)
       trelloApiService.generateCards(id);
       service.cardsFound = true

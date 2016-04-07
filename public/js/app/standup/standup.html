@@ -27,7 +27,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li ng-repeat="list in vm.trello.lists">
-                  <a ng-click="vm.dataService.listLinkWorks(list.id, list.name)">{{list.name}}</a>
+                  <a ng-click="vm.dataService.generateCards(list.id, list.name)">{{list.name}}</a>
                 </li>
               </ul>
             </div>

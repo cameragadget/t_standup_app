@@ -12,7 +12,6 @@
     var service = {
       generateMeeting: generateMeeting,
       trelloApiService: trelloApiService,
-      generateCards: trelloApiService.generateCards
 
     };
 
