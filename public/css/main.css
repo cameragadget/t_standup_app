@@ -36,9 +36,14 @@ button.btn-lg {
   margin-top: 50px;
 }
 
+.trelloBoardsDropdownContainer {
+  margin-left: 47px;
+}
+
 .trelloBoards {
   width: 354px;
   font-size: 20px;
+/*  margin-left: 50px;*/
 }
 
 .teamsList {

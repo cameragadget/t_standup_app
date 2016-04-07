@@ -1,5 +1,5 @@
 <h1>Welcome to your team dashboard!</h1>
-<h3>From here you can chose and existing team or start a new one!</h3>
+<h3>From here you can chose an existing team or start a new one!</h3>
 
 <div class="col-md-12">
   <div class="col-md-6">
@@ -8,7 +8,7 @@
         Don't see your team? Start a new one!
         <span class="caret"></span>
       </button>
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+      <ul class="trelloBoardsDropdownContainer dropdown-menu" aria-labelledby="dropdownMenu">
        <li class="trelloBoards" ng-repeat="board in vm.trello.myBoards">
           <a ng-click="vm.dataService.generateANewTeam(board.id, board.name)">{{board.name}}</a>
        </li>
