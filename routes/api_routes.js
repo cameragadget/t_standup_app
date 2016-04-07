@@ -5,7 +5,7 @@ var apiController   = require("../controllers/api");
 
 // API resources path
 router.get( "/teams",                     apiController.indexTeams);
-router.get( "/teams/:id",               apiController.showTeam);
+router.get( "/teams/:id",                 apiController.showTeam);
 router.post("/teams",                     apiController.createTeam);
 router.put( "/teams/:id",                 apiController.updateTeam);
 

@@ -2,7 +2,7 @@
 html,
 body {
   box-sizing: border-box;
-  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .navbar {
@@ -27,12 +27,63 @@ a.btn, .button-trello {
 
 }
 
+button.btn-lg {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2) !important;
+  background-color: #023D4A !important;
+  border-color: #023D4A !important;
+  color: #6CA299 !important;
+  border-radius: 0px !important;
+  margin-top: 50px;
+}
+
+.trelloBoards {
+  width: 354px;
+  font-size: 20px;
+}
+
+.teamsList {
+  margin-top: 20px;
+}
+
+#teamHeader {
+  width: 370px;
+  height: 60px;
+  font-size: 25px;
+  text-align: center;
+  padding-top: 10px;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2) !important;
+  color: #6CA299 !important;
+  background-color: #023D4A !important;
+  margin-top: 25px;
+}
+
+
 
 body {
   font-size: 14px;
   padding: 50px;
   background-color: #D8D8D8;
+  text-align: center;
 }
+
+
+.teamCard {
+  background-color: #FFFDD7;
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2) !important;
+  margin-top: 10px;
+
+}
+
+.teamBoardName {
+  font-size: 30px;
+  margin-top: 3px;
+  margin-bottom:10px;
+}
+
+.teamBoardLeader {
+  margin-bottom:3px;
+}
+
 
 a { color: #00B7FF; }
 

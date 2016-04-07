@@ -26,7 +26,7 @@
       <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
           <ul class="nav navbar-nav">
-            <li><a ui-sref-active="active" ui-sref="welcome" class="btn">Welcome</a></li>
+            <li><a ui-sref-active="active" ui-sref="welcome" class="btn navbar-brand navbar-left">T StandUp</a></li>
             <li><a ui-sref-active="active" ui-sref="dashboard" ng-show="mainCtrl.authService.currentUser" class="btn">Dashboard</a></li>
             <li><a ui-sref-active="active" ui-sref="standup" ng-show="mainCtrl.authService.currentUser" class="btn">StandUp</a></li>
           </ul>
@@ -54,6 +54,7 @@
   <script src="/js/app/dashboard/dashboard.controller.js"></script>
   <script src="/js/app/standup/standup.controller.js"></script>
   <script src="/js/app/services/team.dataservice.js"></script>
+  <script src="/js/app/services/meeting.dataservice.js"></script>
   <script src="/js/app/trello/trelloApi.service.js"></script>
 </body>
 </html>
