@@ -1,12 +1,7 @@
 var Team = require("../models/team");
 
 var Meeting;
-
 var Report;
-
-
-
-
 
 // CREATE TEAM
 
@@ -87,19 +82,29 @@ function indexTeams(req, res) {
 ///  CREATE MEETING  - meetings can only be created, and gotten, not updated or destroyed
 
 function createMeeting(req, res, next) {
+  console.log(req.params);
   console.log(req.body);
-  console.log(req.user);
-  Meeting.create({
-        boardName:     boardName,
-        trelloBid:     trelloBid
-  })
-    .then(function(meeting) {
-      // return Meeting object
-      res.json({
-        msg:  "Meeting created!",
-        report: meeting
+
+  Team
+    .findById(req.params.id).exec()
+    .then((team) => {
+      var message;
+      if (team.currentMeeting) {
+        res.json({
+          message: "Meeting already exists…",
+          meeting: team.currentMeeting
+        });
+      } else {
+        team.currentMeeting = {members: req.body.members};
+        team.save(() => {
+          res.json({
+            message: "Meeting created!",
+            meeting: team.currentMeeting
+          });
+        });
+      }
     })
-  });
+    .catch(function(err) { next(err); });
 };
 
 function showMeeting(req, res, next){

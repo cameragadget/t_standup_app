@@ -24,8 +24,6 @@ var meetingSchema = new mongoose.Schema({
   createdAt:     { type: Date,   default: Date.now },
   openMinutes:   { type: Number, default: 1440 }, // 24 hours!
   closedAt:      { type: Date },
-  // boardName:     { type: String, required: true },
-  // trelloBid:     { type: String, required: true },
   members:       { type: Array },
   reports:       [reportSchema]
 });

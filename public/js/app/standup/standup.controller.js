@@ -19,7 +19,8 @@
         .startNewMeeting()
         .then(function(res) {
           vm.membersLoaded = true;
-          $scope.$apply();
+
+          $log.info("Meeting creation accepted:", res);
         });
     }
 

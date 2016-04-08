@@ -11,7 +11,7 @@ router.put( "/teams/:id",                 apiController.updateTeam);
 
 router.get( "/teams/:b_id/meetings",      apiController.indexMeetings);
 router.get( "/teams/:b_id/meetings/:id",  apiController.showMeeting);
-router.post("/teams/:b_id/meetings",      apiController.createMeeting);
+router.post("/teams/:id/meetings",        apiController.createMeeting);
 
 router.get( "/teams/:b_id/meetings/:id/reports",      apiController.indexReports);
 router.post("/teams/:b_id/meetings/:id/reports",      apiController.createReport);

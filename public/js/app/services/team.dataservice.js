@@ -5,9 +5,9 @@
     .module("app")
     .factory("teamDataService", teamDataService);
 
-  teamDataService.$inject = ["$state", "$log", "$http", "trelloApiService", "authService", "$rootScope"];
+  teamDataService.$inject = ["$q", "$state", "$log", "$http", "trelloApiService", "authService", "$rootScope"];
 
-  function teamDataService($state, $log, $http, trelloApiService, authService, $rootScope) {
+  function teamDataService($q, $state, $log, $http, trelloApiService, authService, $rootScope) {
 
     var service = {
       sprint:         {},
@@ -83,11 +83,15 @@
 
     function startNewMeeting(boardId) {
       service.sprintSelected = false;
-      return $http({
+      console.log(this.selectedTeam)
+      var deferred = trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
+
+      return $q.when(deferred).then((data) => {
+        return $http({
           method: 'POST',
-          url:    '/teams/' + this.selectedTeam._id + '/meetings'
-        }).then(function() {
-        return trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
+          url:    '/api/teams/' + this.selectedTeam._id + '/meetings',
+          data:   data.members
+        });
       });
     }
 
