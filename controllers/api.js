@@ -163,18 +163,24 @@ function createReport(req, res, next) {
 /////// UPDATE REPORT
 
 function updateReport(req, res, next) {
-  var reportID  = req.params.id;
-  var changes = req.body;
-
-  Report
-  .findById(reportId)
-  .then(function(report) {
-    return report.update(changes);
-  })
-  .then(function(status) {
-    res.json({msg: "Updated report!", status: status});
-  });
-}
+  console.log("incoming report" + req.body);
+  Team
+    .findById(req.params.idTeam).exec()
+    .then((team) => {
+      var reportUpdate = team.currentMeeting.reports.id(req.params.idReport);
+      reportUpdate.current = req.body.current;
+      reportUpdate.currentId = req.body.id;
+      reportUpdate.outlook = req.body.outlook;
+      reportUpdate.blocker = req.body.blocker;
+        team.save(() => {
+          res.json({
+            message: "report updated!!",
+            report: team.currentMeeting.reports.id(req.params.idReport)
+          });
+        });
+      })
+    .catch(function(err) { next(err); });
+};
 
 
 ///// INDEX REPORTS

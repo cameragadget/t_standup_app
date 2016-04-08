@@ -22,6 +22,8 @@
       selectedBoard:    {},
       meetingMembers:   [],
 
+      reportFormData:        {},
+
       cardsFound:    false,
 
       getTeams:             getTeams,
@@ -33,9 +35,9 @@
       generateCards:         generateCards,
       selectCard:            selectCard,
 
+      updateReport:          updateReport,
       startNewMeeting:       startNewMeeting,
       createMeetingReports:  createMeetingReports,
-
       trelloApiService:      trelloApiService,
       myBoardId:             trelloApiService.myBoardId
     };
@@ -46,7 +48,27 @@
 
 
 
+    // vm.reportFormData = {
+    //     sprint:   "",
+    //     sprintId: "",
+    //     blocker: "",
+    //     outlook: ""
+    // };
 
+
+
+    function updateReport(reportId){
+       $log.info("form data", service.reportFormData)
+        return $http({
+        method: "put",
+        url:    "/api/teams/" + service.selectedTeam._id + '/currentMeeting/reports/' + reportId,
+        data: service.reportFormData
+         }).then(function(response) {
+        $log.info("this report was sent as", response);
+       }, function(err) {
+        $log.info(err);
+       });
+    }
 
 
     function startNewMeeting(boardId) {
@@ -140,8 +162,9 @@
     function selectCard(id, name) {
       $log.info("card selected:", name);
       service.sprint = {id, name};
+      service.reportFormData.current = name;
+      service.reportFormData.currentId = id;
       service.sprintSelected = true;
-
     };
 
     function generateCards(id, name) {
