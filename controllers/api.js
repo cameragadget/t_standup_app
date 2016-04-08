@@ -95,7 +95,7 @@ function createMeeting(req, res, next) {
           meeting: team.currentMeeting
         });
       } else {
-        team.currentMeeting = {members: req.body.members};
+        team.currentMeeting = {members: req.body};
         team.save(() => {
           res.json({
             message: "Meeting created!",
