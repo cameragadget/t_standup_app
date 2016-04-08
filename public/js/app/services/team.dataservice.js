@@ -158,7 +158,7 @@
       // trelloApiService.getBoardMembers(boardid, boardname)
       // .then(function(){
         createTeam();
-         $state.go('standups.current');
+         // $state.go('standups.current');
       // });
     }
 
@@ -169,6 +169,7 @@
        $http.post('/api/teams', teamData)
        .then(function(response) {
         $log.info("this team was sent as", response);
+        getTeams();
        }, function(err) {
         $log.info(err);
        })

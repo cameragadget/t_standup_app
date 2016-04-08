@@ -50,7 +50,7 @@
           boards.forEach(function(board){
             service.myFixedBoards.push({trelloBid: board.id});
             });
-          $log.info(service.myFixedBoards);
+          $log.info("fixed boards", service.myFixedBoards);
           $rootScope.$apply();
         },
         function(err) {
