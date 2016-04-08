@@ -65,6 +65,10 @@
         data: service.reportFormData
          }).then(function(response) {
         $log.info("this report was sent as", response);
+        // service.reportFormData = {};
+        // service.sprint = {};
+        // service.sprintSelected = false;
+        // refreshTeam(service.selectedTeam.id);
        }, function(err) {
         $log.info(err);
        });
@@ -130,6 +134,7 @@
         // trelloApiService.getBoardMembers(data.trelloBid);
         service.teamSelected = true;
         $state.go('standups.current');
+        trelloApiService.generateLists(service.selectedTeam.trelloBid)
       });
     }
 

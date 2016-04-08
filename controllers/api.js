@@ -17,7 +17,8 @@ function createTeam(req, res, next) {
         initiator:      req.body.initiator,
         initiatorId:    req.body.initiatorId,
         boardName:      req.body.boardName,
-        trelloBid:      req.body.trelloBid
+        trelloBid:      req.body.trelloBid,
+        submitted:      true
       });
     }
   })
@@ -164,6 +165,7 @@ function createReport(req, res, next) {
 
 function updateReport(req, res, next) {
   console.log("incoming report" + req.body);
+  var reportsId = req.params.idReport
   Team
     .findById(req.params.idTeam).exec()
     .then((team) => {
@@ -175,7 +177,7 @@ function updateReport(req, res, next) {
         team.save(() => {
           res.json({
             message: "report updated!!",
-            report: team.currentMeeting.reports.id(req.params.idReport)
+            report: team.currentMeeting.reports
           });
         });
       })

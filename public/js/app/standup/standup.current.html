@@ -19,64 +19,56 @@
             <div id="{{report._id}}" class="panel-heading">
               <h4>{{report.memberName}}</h4>
             </div>
-            <div ng-hide="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                My Trello Lists <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ng-repeat="list in vm.trello.lists">
-                  <a ng-click="vm.dataService.generateCards(list.id, list.name)">{{list.name}}</a>
-                </li>
-              </ul>
-            </div>
 
-            <div class="dropdown" ng-show="(vm.dataService.cardsFound && !vm.dataService.sprintSelected)">
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sprint Cards <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ng-repeat="card in vm.trello.cards">
-                  <a ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
-                </li>
-              </ul>
-            </div>
-
-
-
-
-            <div class="panel-body">
-              <form class="form-horizontal" role="form">
-
-
-                <div ng-show="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="form-group">
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
-                      placeholder={{vm.dataService.sprint.name}} />
+              <div ng-hide="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  My Trello Lists <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li ng-repeat="list in vm.trello.lists">
+                    <a ng-click="vm.dataService.generateCards(list.id, list.name)">{{list.name}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="dropdown" ng-show="(vm.dataService.cardsFound && !vm.dataService.sprintSelected)">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Sprint Cards <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li ng-repeat="card in vm.trello.cards">
+                    <a ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                  <div ng-show="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="form-group">
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
+                        placeholder={{vm.dataService.sprint.name}} />
+                    </div>
                   </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label for="inputBlocker" class="col-sm-3 control-label">Blockers</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputBLocker" ng-model="vm.dataService.reportFormData.blocker"
-                      placeholder="Blockers" />
+                  <div class="form-group">
+                    <label for="inputBlocker" class="col-sm-3 control-label">Blockers</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputBLocker" ng-model="vm.dataService.reportFormData.blocker"
+                        placeholder="Blockers" />
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputOutlook" class="col-sm-3 control-label">Outlook</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputOutlook" ng-model="vm.dataService.reportFormData.outlook"
-                      placeholder="Outlook" />
+                  <div class="form-group">
+                    <label for="inputOutlook" class="col-sm-3 control-label">Outlook</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputOutlook" ng-model="vm.dataService.reportFormData.outlook"
+                        placeholder="Outlook" />
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-sm-offset-4 col-sm-10">
-                    <button type="submit" class="btn btn-default" ng-click="vm.dataService.updateReport(report._id)">Submit Report</button>
+                  <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-10">
+                      <button type="submit" class="btn btn-default" ng-click="vm.dataService.updateReport(report._id)">Submit Report</button>
+                    </div>
                   </div>
-                </div>
-              </form>
-            </div>
+                </form>
+              </div>
 
             </div>
           </div>
@@ -84,4 +76,3 @@
       </div>
     </div>
 
-<div> hello? </div>

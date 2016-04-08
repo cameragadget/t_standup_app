@@ -132,6 +132,7 @@
           function(list) {
             $log.info("Lists found: ", list);
             // service.lists = list;
+            $rootScope.$apply();
             return list;
           },
           function(err) {
