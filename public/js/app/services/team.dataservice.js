@@ -40,50 +40,55 @@
 ///// this will create an entire new meeting when complete
 
 
-    function createMeetingReports(meeting) {
-      meeting.members.forEach(function(member){
-        createNewReport(member)
-      });
-    }
+    // function createMeetingReports(meeting) {
+    //   meeting.members.forEach(function(member){
+    //     createNewReport(member)
+    //   });
+    // }
 
 
-    function addReportToMeeting(report) {
-      meeting.reports.push(report)
-    }
+    // function addReportToMeeting(report) {
+    //   meeting.reports.push(report)
+    // }
 
-    function createNewMeetingSchema(selectedTeam) {
-      var meeting = {
-          createdAt:  Date.now,
-          boardName:  service.selectedTeam.name,
-          trelloBid:  service.selectedTeam.trelloBid,
-          members:    service.boardMembers,
-          reports: {}
-      }
-      return meeting;
-    }
+    // function createNewMeetingSchema(selectedTeam) {
+    //   var meeting = {
+    //       createdAt:  Date.now,
+    //       boardName:  service.selectedTeam.name,
+    //       trelloBid:  service.selectedTeam.trelloBid,
+    //       members:    service.boardMembers,
+    //       reports: {}
+    //   }
+    //   return meeting;
+    // }
 
 
 
-    function createNewReport(member) {
-      var report = {
-          createdAt:    Date.now ,
-          memberId:     member.id,
-          memberName:   member.fullName,
-          current:      "",
-          currentId:    "",
-          blocker:      "blocker",
-          outlook:      "outlook",
-          trelloBid:    service.selectedTeam.trelloBid,
-          submitted:    false
-      }
-      return report
-    }
+    // function createNewReport(member) {
+    //   var report = {
+    //       createdAt:    Date.now ,
+    //       memberId:     member.id,
+    //       memberName:   member.fullName,
+    //       current:      "",
+    //       currentId:    "",
+    //       blocker:      "blocker",
+    //       outlook:      "outlook",
+    //       trelloBid:    service.selectedTeam.trelloBid,
+    //       submitted:    false
+    //   }
+    //   return report
+    // }
 
 
 
     function startNewMeeting(boardId) {
       service.sprintSelected = false;
-      return trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
+      return $http({
+          method: 'POST',
+          url:    '/teams/' + this.selectedTeam._id + '/meetings'
+        }).then(function() {
+        return trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
+      });
     }
 
 
@@ -106,7 +111,7 @@
       .then(function(data){
         // trelloApiService.getBoardMembers(data.trelloBid);
         service.teamSelected = true;
-        $state.go('standup');
+        $state.go('standups.current');
       });
     }
 
@@ -114,13 +119,13 @@
 //// gets teams objects from my database
 
     function getTeams() {
-        $http.get('/api/teams').then(function(response) {
-          service.teams = response.data;
-          $log.info("here are your teams", service.teams);
-        }, function(errRes) {
-          console.error('Error finding teams!', errRes);
-        });
-      }
+      $http.get('/api/teams').then(function(response) {
+        service.teams = response.data;
+        $log.info("here are your teams", service.teams);
+      }, function(errRes) {
+        console.error('Error finding teams!', errRes);
+      });
+    }
 
 
 /////
@@ -149,7 +154,7 @@
       // trelloApiService.getBoardMembers(boardid, boardname)
       // .then(function(){
         createTeam();
-         $state.go('standup');
+         $state.go('standups.current');
       // });
     }
 

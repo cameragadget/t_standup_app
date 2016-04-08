@@ -22,9 +22,16 @@
         controllerAs: "vm",
         requireAuth: true
       })
-      .state('standup', {
-        url: "/standup",
+      .state('standups', {
+        url: "/standups",
         templateUrl: "/js/app/standup/standup.html",
+        controller: "StandupController",
+        controllerAs: "vm",
+        requireAuth: true
+      })
+     .state('standups.current', {
+        url: "/current",
+        templateUrl: "/js/app/standup/standup.current.html",
         controller: "StandupController",
         controllerAs: "vm",
         requireAuth: true

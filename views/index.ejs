@@ -28,7 +28,7 @@
           <ul class="nav navbar-nav">
             <li><a ui-sref-active="active" ui-sref="welcome" class="btn navbar-brand navbar-left">T StandUp</a></li>
             <li><a ui-sref-active="active" ui-sref="dashboard" ng-show="mainCtrl.authService.currentUser" class="btn">Dashboard</a></li>
-            <li><a ui-sref-active="active" ui-sref="standup" ng-show="mainCtrl.authService.currentUser && mainCtrl.dataService.teamSelected" class="btn">StandUp</a></li>
+            <li><a ui-sref-active="active" ui-sref="standups" ng-show="mainCtrl.authService.currentUser && mainCtrl.dataService.teamSelected" class="btn">StandUp</a></li>
           </ul>
           <div class="pull-right">
             <a class="navbar-brand name button-trello" ng-show="mainCtrl.authService.currentUser" href="http://www.trello.com" target="_blank">{{mainCtrl.authService.currentUser.fullName}}</a>

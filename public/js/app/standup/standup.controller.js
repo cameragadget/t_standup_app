@@ -18,6 +18,7 @@
       teamDataService
         .startNewMeeting()
         .then(function(res) {
+          vm.membersLoaded = true;
           $scope.$apply();
         });
     }
