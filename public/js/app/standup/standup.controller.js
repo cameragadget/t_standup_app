@@ -5,20 +5,24 @@
     .module("app")
     .controller("StandupController", StandupController);
 
-  StandupController.$inject = ["$log", "trelloApiService", "teamDataService"];
+  StandupController.$inject = ["$log", "$scope", "trelloApiService", "teamDataService"];
 
-  function StandupController($log, trelloApiService, teamDataService) {
-    $log.info("StandupController loaded");
-
+  function StandupController($log, $scope, trelloApiService, teamDataService) {
     var vm = this;
 
-    vm.trello = trelloApiService;
+    vm.trello       = trelloApiService;
+    vm.dataService  = teamDataService
+    vm.startMeeting = startMeeting;
 
-    vm.dataService = teamDataService
+    function startMeeting() {
+      teamDataService
+        .startNewMeeting()
+        .then(function(res) {
+          $scope.$apply();
+        });
+    }
 
-
-
-
+    $log.info("StandupController loaded");
   }
 
 })();

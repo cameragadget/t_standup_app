@@ -68,64 +68,76 @@
 
     function getBoardMembers(boardId) {
       service.myBoardId = boardId;
-      $log.info("service myBoardId", service.myBoardId)
-      // teamDataService.createTeam(boardId, boardName);
-      return Trello.get("/boards/" + boardId + "/memberships", { fields:"id" })
-      .then(
-        function(members) {
-          // $log.info("members found: ", members);
-          service.boardMembers = members;
-          // $log.info(service.boardMembers);
-          generateTeamMembers(service.boardMembers);
-          generateLists(boardId);
-        },
-        function(err) {
-          console.log("Failure: ", err);
-        }
-      );
+      $log.info("calling getBoardMembers with myBoardId:", service.myBoardId);
+
+      return Trello
+        .get("/boards/" + boardId + "/memberships", { fields:"id" })
+        .then(function(members) {
+          return $.when(
+            generateTeamMembers(members),
+            generateLists(boardId)
+          );
+        })
+        .then(
+          function(members, lists) {
+            service.teamMembers = members;
+            service.lists = lists;
+
+            return {members: members, lists: lists};
+          },
+          function(err) {
+            console.log("Failure: ", err);
+          }
+        );
     };
 
 
 //// insert the array of member id #'s to retrieve their full info
 
+    // FIXME: (PJ) rename this getTeamMembersNames!
     function generateTeamMembers(members) {
-      service.teamMembers = [];
-      members.forEach(function(mems) {
-       Trello.get("/members/" + mems.idMember, { fields: "fullName,id" })
-        .then(
-          function(newMem) {
-            // $log.info("Well hi there", newMem.fullName);
-            service.teamMembers.push(newMem);
-            if (service.teamMembers.length === members.length){
-              // $log.info(service.teamMembers);
-              return service.teamMembers;
-            };
-          },
-          function(err) {
-            console.log("Failure:", err);
-          }
-        )
+      // console.log("Who am I?????", members);
+      var fullMembers = [];
+      var promises = members.map(function(member) {
+        return Trello
+          .get("/members/" + member.idMember, { fields: "fullName,id" })
+          .then(
+            function(fullMember) {
+              $log.info("Well hi there", fullMember.fullName);
+              fullMembers.push(fullMember);
+            },
+            function(err) {
+              $log.warn("Request for member failed:", err);
+            }
+          );
       });
+
+      // TODO: comment this bit of insanity…
+      //   - (Can't use Promise.all) http://stackoverflow.com/questions/36255685/mixing-es6-promises-with-jquery-promises
+      //   - (Can't pass an Array to $.when) http://stackoverflow.com/questions/5627284/pass-in-an-array-of-deferreds-to-when
+      return $.when.apply($, promises)
+        .then(function() {
+          return fullMembers;
+        });
     };
-
-
 
 //// from current SELECTED BOARD, get list of all trello lists on that board
 
 
     function generateLists(boardId) {
-      service.lists = [],
-        Trello.get("/boards/" + boardId + "/lists")
-      .then(
-        function(list) {
-          $log.info("Lists found: ", list);
-          service.lists = list;
-        return list;
-      },
-        function(err) {
-          console.log("Failure: ", err);
-        }
-      );
+      // service.lists = [],
+      return Trello
+        .get("/boards/" + boardId + "/lists")
+        .then(
+          function(list) {
+            $log.info("Lists found: ", list);
+            // service.lists = list;
+            return list;
+          },
+          function(err) {
+            console.log("Failure: ", err);
+          }
+        );
     }
 
 /// from selected list from selected board, get list of all cards in that list
@@ -133,7 +145,7 @@
 
     function generateCards(listId) {
       service.cards = [],
-        Trello.get("/lists/" + listId + "/cards")
+      Trello.get("/lists/" + listId + "/cards")
       .then(
         function(card) {
           $log.info("Cards found: ", card);

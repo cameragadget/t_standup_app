@@ -35,7 +35,7 @@
 
       trelloApiService: trelloApiService,
       myBoardId:        trelloApiService.myBoardId
-    }
+    };
 
 ///// this will create an entire new meeting when complete
 
@@ -83,8 +83,7 @@
 
     function startNewMeeting(boardId) {
       service.sprintSelected = false;
-      trelloApiService.getBoardMembers(boardId)
-      .then
+      return trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
     }
 
 
@@ -106,9 +105,8 @@
       })
       .then(function(data){
         // trelloApiService.getBoardMembers(data.trelloBid);
-      service.teamSelected = true;
-      $state.go('standup');
-      $rootScope.$apply();
+        service.teamSelected = true;
+        $state.go('standup');
       });
     }
 

@@ -21,7 +21,8 @@
       Active team memberships!
     </div>
     <div class="row">
-      <div ng-click="vm.dataService.showTeam(team._id)" class="teamCard col-md-10" ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')">
+      <div ng-click="vm.dataService.showTeam(team._id)" class="teamCard touchable col-md-10"
+           ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')">
           <div class="teamBoardName">{{team.boardName}}</div>
           <div class="teamBoardLeader">Team Leader: {{team.initiator}}</div>
       </div>

@@ -96,3 +96,7 @@ a { color: #00B7FF; }
 .welcome {
   max-width: 1000px;
 }
+
+.touchable {
+  cursor: pointer;
+}
