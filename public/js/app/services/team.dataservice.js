@@ -27,6 +27,7 @@
       showTeam:         showTeam,
       createTeam:       createTeam,
       generateANewTeam: generateANewTeam,
+      refreshTeam:      refreshTeam,
 
       generateCards:    generateCards,
       selectCard:       selectCard,
@@ -95,6 +96,10 @@
       });
     }
 
+    // function getCurrentMeeting(boardId {
+
+    // })
+
 
 
 /////// on click on team from dashboard list of teams, moves to
@@ -119,6 +124,17 @@
       });
     }
 
+    function refreshTeam(teamId){
+      $log.info("refreshingTeam", teamId);
+      $http.get('api/teams/' + teamId).then(function(response) {
+        service.selectedTeam = response.data;
+        console.log(response.data);
+        $log.info("you chose this team:", service.selectedTeam);
+        return service.selectedTeam;
+      }, function(errRes) {
+        console.error("error finding that team sir!", errRes);
+      });
+    }
 
 //// gets teams objects from my database
 

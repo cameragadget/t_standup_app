@@ -6,16 +6,16 @@
 </div>
 
 <div ng-show="vm.membersLoaded">
-  <h4>Our meeting started at {{""}}</h4>
+  <h4>Our meeting started at {{vm.dataService.selectedBoard.currentMeeting.createdAt}}</h4>
   <h4>We are waiting for members {{[]}} to complete their reports.</h4>
-  <h4>The meeting closes at {{""}}!</h4>
+  <h4>The meeting closes at {{''}}!</h4>
 </div>
 
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <div class="{{vm.trello.myBoardId}}">
-          <div class="panel" ng-repeat="member in vm.trello.teamMembers">
+        <div class="{{vm.dataService.selectedTeam.trelloBid}}">
+          <div class="panel" ng-repeat="member in vm.dataService.selectedTeam.currentMeeting.members">
             <div id="{{member.id}}" class="panel-heading">
               {{member.fullName}}
             </div>
@@ -84,4 +84,4 @@
       </div>
     </div>
 
-
+<div> hello? </div>

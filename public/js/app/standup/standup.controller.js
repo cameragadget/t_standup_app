@@ -21,6 +21,10 @@
           vm.membersLoaded = true;
 
           $log.info("Meeting creation accepted:", res);
+          $log.info(teamDataService.selectedTeam)
+          teamDataService.refreshTeam(teamDataService.selectedTeam._id);
+        }).then(function(res){
+          $log.info("refreshedTeam:", teamDataService.selectedTeam);
         });
     }
 
@@ -28,3 +32,9 @@
   }
 
 })();
+
+
+
+
+
+
