@@ -9,13 +9,13 @@ router.get( "/teams/:id",                 apiController.showTeam);
 router.post("/teams",                     apiController.createTeam);
 router.put( "/teams/:id",                 apiController.updateTeam);
 
-router.get( "/teams/:b_id/meetings",      apiController.indexMeetings);
-router.get( "/teams/:b_id/meetings/:id",  apiController.showMeeting);
+router.get( "/teams/:id/meetings",      apiController.indexMeetings);
+router.get( "/teams/:id/meetings/:id",  apiController.showMeeting);
 router.post("/teams/:id/meetings",        apiController.createMeeting);
 
-router.get( "/teams/:b_id/meetings/:id/reports",      apiController.indexReports);
-router.post("/teams/:b_id/meetings/:id/reports",      apiController.createReport);
-router.get( "/teams/:b_id/meetings/:id/reports/:id",  apiController.updateReport);
+router.get( "/teams/:id/meetings/:id/reports",      apiController.indexReports);
+router.post("/teams/:id/currentMeeting/reports",      apiController.createReport);
+router.get( "/teams/:id/meetings/:id/reports/:id",  apiController.updateReport);
 
 
 

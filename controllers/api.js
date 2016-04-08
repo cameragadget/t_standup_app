@@ -141,24 +141,23 @@ function indexMeetings(req, res) {
 /// CREATE REPORT
 
 function createReport(req, res, next) {
-  console.log(req.body);
-  console.log(req.user);
-  Meeting.reports.create({
-        memberId:     memberId,
-        memberName:   memberName,
-        current:      current,
-        currentId:    currentId,
-        blocker:      blocker,
-        outlook:      outlook,
-        trelloBid:    trelloBid,
-  })
-    .then(function(report) {
-      // return report object
-      res.json({
-        msg:  "Report created!",
-        report: report
-    })
-  });
+  console.log("incoming report" + req.body.id + req.body.fullName + req.body.trelloBid);
+  Team
+    .findById(req.params.id).exec()
+    .then((team) => {
+      var reportNew = team.currentMeeting.reports.push({
+        memberId:     req.body.id,
+        memberName:   req.body.fullName,
+        trelloBid:    req.body.trelloBid,
+      }) - 1 ;
+        team.save(() => {
+          res.json({
+            message: "report created!",
+            report: team.currentMeeting.reports[reportNew]
+          });
+        });
+      })
+    .catch(function(err) { next(err); });
 };
 
 /////// UPDATE REPORT

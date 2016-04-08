@@ -13,72 +13,39 @@
       sprint:         {},
       sprintSelected: false,
 
-      teams:         [],
+      teams:            [],
       // filteredTeams: [],
 
-      selectedTeam:  {},
-      teamSelected:  false,
+      selectedTeam:     {},
+      teamSelected:     false,
 
-      selectedBoard: {},
+      selectedBoard:    {},
+      meetingMembers:   [],
 
       cardsFound:    false,
 
-      getTeams:         getTeams,
-      showTeam:         showTeam,
-      createTeam:       createTeam,
-      generateANewTeam: generateANewTeam,
-      refreshTeam:      refreshTeam,
+      getTeams:             getTeams,
+      showTeam:             showTeam,
+      createTeam:           createTeam,
+      generateANewTeam:     generateANewTeam,
+      refreshTeam:          refreshTeam,
 
-      generateCards:    generateCards,
-      selectCard:       selectCard,
+      generateCards:         generateCards,
+      selectCard:            selectCard,
 
-      startNewMeeting:  startNewMeeting,
+      startNewMeeting:       startNewMeeting,
+      createMeetingReports:  createMeetingReports,
 
-      trelloApiService: trelloApiService,
-      myBoardId:        trelloApiService.myBoardId
+      trelloApiService:      trelloApiService,
+      myBoardId:             trelloApiService.myBoardId
     };
 
 ///// this will create an entire new meeting when complete
 
 
-    // function createMeetingReports(meeting) {
-    //   meeting.members.forEach(function(member){
-    //     createNewReport(member)
-    //   });
-    // }
-
-
-    // function addReportToMeeting(report) {
-    //   meeting.reports.push(report)
-    // }
-
-    // function createNewMeetingSchema(selectedTeam) {
-    //   var meeting = {
-    //       createdAt:  Date.now,
-    //       boardName:  service.selectedTeam.name,
-    //       trelloBid:  service.selectedTeam.trelloBid,
-    //       members:    service.boardMembers,
-    //       reports: {}
-    //   }
-    //   return meeting;
-    // }
 
 
 
-    // function createNewReport(member) {
-    //   var report = {
-    //       createdAt:    Date.now ,
-    //       memberId:     member.id,
-    //       memberName:   member.fullName,
-    //       current:      "",
-    //       currentId:    "",
-    //       blocker:      "blocker",
-    //       outlook:      "outlook",
-    //       trelloBid:    service.selectedTeam.trelloBid,
-    //       submitted:    false
-    //   }
-    //   return report
-    // }
 
 
 
@@ -88,17 +55,37 @@
       var deferred = trelloApiService.getBoardMembers(this.selectedTeam.trelloBid);
 
       return $q.when(deferred).then((data) => {
+        service.meetingMembers = data.members;
         return $http({
           method: 'POST',
           url:    '/api/teams/' + this.selectedTeam._id + '/meetings',
           data:   data.members
+        }).then(function(response) {
+        $log.info("this report was sent as", response);
+       }, function(err) {
+        $log.info(err);
+       });
+      });
+    }
+
+    function createMeetingReports() {
+      $log.info("meetingMem", service.meetingMembers)
+
+      return service.meetingMembers.forEach(function(member){
+        $log.info(member);
+            var report = {
+          id:           member.id,
+          fullName:     member.fullName,
+          trelloBid:    service.selectedTeam.trelloBid,
+      };
+      return $http({
+          method: 'POST',
+          url:    "/api/teams/" + service.selectedTeam._id + '/currentMeeting/reports',
+          data: report
         });
       });
     }
 
-    // function getCurrentMeeting(boardId {
-
-    // })
 
 
 
@@ -126,7 +113,7 @@
 
     function refreshTeam(teamId){
       $log.info("refreshingTeam", teamId);
-      $http.get('api/teams/' + teamId).then(function(response) {
+      return $http.get('api/teams/' + teamId).then(function(response) {
         service.selectedTeam = response.data;
         console.log(response.data);
         $log.info("you chose this team:", service.selectedTeam);

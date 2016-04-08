@@ -1,12 +1,12 @@
 
 
-<div ng-hide="vm.membersLoaded">
+<div ng-hide="vm.membersLoaded || vm.dataService.selectedTeam.currentMeeting">
   <h1>You haven't started your standup yet!</h1>
   <button type="submit" ng-click="vm.startMeeting();"class="btn btn-default">Start A New Meeting</button>
 </div>
 
-<div ng-show="vm.membersLoaded">
-  <h4>Our meeting started at {{vm.dataService.selectedBoard.currentMeeting.createdAt}}</h4>
+<div ng-show="vm.membersLoaded || vm.dataService.selectedTeam.currentMeeting">
+  <h4>Our meeting started at {{vm.dataService.selectedTeam.currentMeeting.createdAt}}</h4>
   <h4>We are waiting for members {{[]}} to complete their reports.</h4>
   <h4>The meeting closes at {{''}}!</h4>
 </div>

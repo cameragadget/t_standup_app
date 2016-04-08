@@ -23,8 +23,16 @@
           $log.info("Meeting creation accepted:", res);
           $log.info(teamDataService.selectedTeam)
           teamDataService.refreshTeam(teamDataService.selectedTeam._id);
-        }).then(function(res){
+        })
+        .then(function(res){
           $log.info("refreshedTeam:", teamDataService.selectedTeam);
+          teamDataService.createMeetingReports();
+        })
+        .then(function(res){
+          teamDataService.refreshTeam(teamDataService.selectedTeam._id);
+          return res
+        }).then(function(res){
+          $log.info("refreshedTeam Final:", teamDataService.selectedTeam);
         });
     }
 
