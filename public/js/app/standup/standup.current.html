@@ -43,9 +43,19 @@
               <div class="panel-body">
                 <form class="form-horizontal" role="form">
                   <div ng-show="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="form-group">
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
-                        placeholder={{vm.dataService.sprint.name}} />
+                    <div ng-show="report.memberId == vm.authService.currentUser.id" class="form-group">
+                      <label for="inputSprint" class="col-sm-3 control-label">Sprint</label>
+                      <div class="col-sm-9">
+                        <textarea class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
+                         placeholder ={{vm.dataService.sprint.name}}></textarea>
+                      </div>
+                    </div>
+                    <div ng-show="report.memberId != vm.authService.currentUser.id" class="form-group">
+                      <label for="inputSprint" class="col-sm-3 control-label">Sprint</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="inputSprint" "{{vm.dataService.sprint.id}}"
+                         placeholder ="Current Sprint" />
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">

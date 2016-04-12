@@ -133,8 +133,10 @@
       .then(function(data){
         // trelloApiService.getBoardMembers(data.trelloBid);
         service.teamSelected = true;
+        return trelloApiService.generateLists(data.trelloBid)
+      })
+      .then(function(data){
         $state.go('standups.current');
-        trelloApiService.generateLists(service.selectedTeam.trelloBid)
       });
     }
 

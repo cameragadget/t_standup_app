@@ -125,13 +125,13 @@
 
 
     function generateLists(boardId) {
-      // service.lists = [],
+      service.lists = [];
       return Trello
         .get("/boards/" + boardId + "/lists")
         .then(
           function(list) {
             $log.info("Lists found: ", list);
-            // service.lists = list;
+            service.lists = list;
             $rootScope.$apply();
             return list;
           },
