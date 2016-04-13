@@ -26,7 +26,7 @@
                   My Trello Lists <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu cardMenu" aria-labelledby="dropdownMenu1">
-                  <li class"cardMenu" ng-repeat="list in vm.trello.lists">
+                  <li class="cardMenu" ng-repeat="list in vm.trello.lists">
                     <a ng-click="vm.dataService.generateCards(list.id, list.name)">{{list.name}}</a>
                   </li>
                 </ul>
@@ -38,8 +38,8 @@
                   Sprint Cards <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu cardMenu" aria-labelledby="dropdownMenu1">
-                  <li class"cardMenu" ng-repeat="card in vm.trello.cards">
-                    <a ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
+                  <li class="cardMenu" ng-repeat="card in vm.trello.cards">
+                    <a class="cardMenu" ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
                   </li>
                 </ul>
               </div>
