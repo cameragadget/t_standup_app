@@ -13,33 +13,38 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="reportCard col-md-6">
         <div class="{{vm.dataService.selectedTeam.trelloBid}}">
           <div class="panel" ng-repeat="report in vm.dataService.selectedTeam.currentMeeting.reports">
             <div id="{{report._id}}" class="panel-heading">
               <h4>{{report.memberName}}</h4>
             </div>
 
+            <div class="drops">
               <div ng-hide="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-lg1 dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   My Trello Lists <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li ng-repeat="list in vm.trello.lists">
+                <ul class="dropdown-menu cardMenu" aria-labelledby="dropdownMenu1">
+                  <li class"cardMenu" ng-repeat="list in vm.trello.lists">
                     <a ng-click="vm.dataService.generateCards(list.id, list.name)">{{list.name}}</a>
                   </li>
                 </ul>
               </div>
+
+
               <div class="dropdown" ng-show="(vm.dataService.cardsFound && !vm.dataService.sprintSelected)">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-lg1 dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Sprint Cards <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li ng-repeat="card in vm.trello.cards">
+                <ul class="dropdown-menu cardMenu" aria-labelledby="dropdownMenu1">
+                  <li class"cardMenu" ng-repeat="card in vm.trello.cards">
                     <a ng-click="vm.dataService.selectCard(card.id, card.name)">{{card.name}}</a>
                   </li>
                 </ul>
               </div>
+             </div>
+
               <div class="panel-body">
                 <form class="form-horizontal" role="form">
                   <div ng-show="vm.dataService.sprintSelected || report.memberId != vm.authService.currentUser.id" class="form-group">

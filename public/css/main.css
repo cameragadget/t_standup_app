@@ -28,6 +28,12 @@ a.btn, .button-trello {
 
 }
 
+.drops {
+  text-align: center !important;
+  margin: 0 auto !important;
+  width: 200px !important;
+}
+
 button.btn-lg {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2) !important;
   background-color: #023D4A !important;
@@ -35,6 +41,25 @@ button.btn-lg {
   color: #6CA299 !important;
   border-radius: 0px !important;
   margin-top: 50px;
+}
+
+button.btn-lg1 {
+  background-color: #023D4A !important;
+  border-color: #023D4A !important;
+  color: #6CA299 !important;
+  border-radius: 0px !important;
+  margin-top: 10px;
+  width: 200px;
+}
+
+.cardMenu {
+  text-align: center !important;
+  width: 200px;
+  margin: 0 auto !important;
+}
+
+.reportCard {
+  text-align: center;
 }
 
 .trelloBoardsDropdownContainer {
