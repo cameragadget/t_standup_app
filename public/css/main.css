@@ -31,8 +31,19 @@ a.btn, .button-trello {
 .drops {
   text-align: center !important;
   margin: 0 auto !important;
-  width: 300px !important;
+  width: 400px !important;
 }
+
+.trelloBoardsDropdownContainer {
+  width: 350px !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+}
+
+.teamDropdown{
+  text-align: center !important;
+}
+
 
 button.btn-lg {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2) !important;
@@ -49,12 +60,12 @@ button.btn-lg1 {
   color: #6CA299 !important;
   border-radius: 0px !important;
   margin-top: 10px;
-  width: 300px;
+  width: 400px;
 }
 
 .cardMenu {
   text-align: center !important;
-  width: 300px !important;
+  width: 400px !important;
   margin: 0 auto !important;
   white-space: normal !important;
 }
@@ -63,22 +74,19 @@ button.btn-lg1 {
   text-align: center;
 }
 
-.trelloBoardsDropdownContainer {
-  margin-left: 47px;
-}
 
 .trelloBoards {
-  width: 354px;
+  width: 354px !important;
   font-size: 20px;
 /*  margin-left: 50px;*/
 }
 
 .teamsList {
   margin-top: 20px;
+  text-align: center;
 }
 
-#teamHeader {
-  width: 370px;
+.teamHeader {
   height: 60px;
   font-size: 25px;
   text-align: center;

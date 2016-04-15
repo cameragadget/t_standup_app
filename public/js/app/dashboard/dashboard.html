@@ -2,13 +2,14 @@
 <h3>From here you can chose an existing team or start a new one!</h3>
 
 <div class="col-md-12">
+
   <div class="col-md-6">
-    <div class="dropdown">
+    <div class="dropdown teamDropDown col-md-6">
       <button class="btn btn-lg dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Don't see your team? Start a new one!
         <span class="caret"></span>
       </button>
-      <ul class="trelloBoardsDropdownContainer dropdown-menu" aria-labelledby="dropdownMenu">
+      <ul class="trelloBoardsDropdownContainer dropdown-menu col-md-6" aria-labelledby="dropdownMenu">
        <li class="trelloBoards" ng-repeat="board in vm.trello.myBoards">
           <a ng-click="vm.dataService.generateANewTeam(board.id, board.name)">{{board.name}}</a>
        </li>
@@ -17,16 +18,14 @@
   </div>
 
   <div class="col-md-6 teamsList">
-    <div id="teamHeader">
+    <div class="teamHeader col-md-10">
       Active team memberships!
     </div>
-    <div class="row">
-      <div ng-click="vm.dataService.showTeam(team._id)" class="teamCard touchable col-md-10"
-           ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')  | orderBy:'+':true">
-          <div class="teamBoardName">{{team.boardName}}</div>
-          <div class="teamBoardLeader">Team Leader: {{team.initiator}}</div>
-      </div>
+    <div ng-click="vm.dataService.showTeam(team._id)" class="teamCard touchable col-md-10"ng-repeat="team in vm._.intersectionBy(vm.dataService.teams, vm.trello.myFixedBoards, 'trelloBid')  | orderBy:'+':true">
+      <div class="teamBoardName">{{team.boardName}}</div>
+      <div class="teamBoardLeader">Team Leader: {{team.initiator}}</div>
     </div>
   </div>
+
 </div>
 
