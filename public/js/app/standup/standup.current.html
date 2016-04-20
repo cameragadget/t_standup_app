@@ -6,7 +6,7 @@
 </div>
 
 <div ng-show="vm.membersLoaded || vm.dataService.selectedTeam.currentMeeting">
-  <h4>Our meeting started at {{vm.dataService.selectedTeam.currentMeeting.createdAt | date: 'dd/MM/yyyy'}}</h4>
+  <h4>Our meeting started on {{vm.dataService.selectedTeam.currentMeeting.createdAt | date: 'MM/dd/yyyy'}}</h4>
 <!--   <h4>We are waiting for members {{[]}} to complete their reports.</h4>
   <h4>The meeting closes at {{''}}!</h4> -->
 </div>

@@ -174,6 +174,7 @@ function updateReport(req, res, next) {
       reportUpdate.currentId = req.body.id;
       reportUpdate.outlook = req.body.outlook;
       reportUpdate.blocker = req.body.blocker;
+      reportUpdate.submitted = true;
         team.save(() => {
           res.json({
             message: "report updated!!",
