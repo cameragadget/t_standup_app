@@ -34,27 +34,26 @@
 
       generateCards:         generateCards,
       selectCard:            selectCard,
+      completed:             [],
 
       updateReport:          updateReport,
       startNewMeeting:       startNewMeeting,
       createMeetingReports:  createMeetingReports,
       trelloApiService:      trelloApiService,
-      myBoardId:             trelloApiService.myBoardId
+      myBoardId:             trelloApiService.myBoardId,
+      remaining:              remaining
+
     };
 
-///// this will create an entire new meeting when complete
 
 
-
-
-
-    // vm.reportFormData = {
-    //     sprint:   "",
-    //     sprintId: "",
-    //     blocker: "",
-    //     outlook: ""
-    // };
-
+    function remaining() {
+      var count = 0;
+      angular.forEach(service.selectedTeam.currentMeeting.reports, function(report) {
+        count += report.submitted ? 0 : 1;
+      });
+      return count;
+    };
 
 
     function updateReport(reportId){
