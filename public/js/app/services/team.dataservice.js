@@ -41,7 +41,7 @@
       createMeetingReports:  createMeetingReports,
       trelloApiService:      trelloApiService,
       myBoardId:             trelloApiService.myBoardId,
-      remaining:              remaining
+      remaining:             remaining
 
     };
 
