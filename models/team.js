@@ -11,10 +11,10 @@ var reportSchema = new mongoose.Schema({
   createdAt:      { type: Date,   default: Date.now },
   memberId:       { type: String, required: true },
   memberName:     { type: String, required: true },
-  current:        { type: String },
+  current:        { type: String, default: "sprint not reported" },
   currentId:      { type: String },
-  blocker:        { type: String },
-  outlook:        { type: String },
+  blocker:        { type: String, default: "blocker not reported" },
+  outlook:        { type: String, default: "outlook not reported" },
   trelloBid:      { type: String, required: true },
   submitted:      { type: Boolean, default: false },
   comments:       [commentSchema]

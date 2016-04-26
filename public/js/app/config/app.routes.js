@@ -31,7 +31,7 @@
       })
      .state('standups.current', {
         url: "/current",
-        templateUrl: "/js/app/standup/standup.current.html",
+        templateUrl: "/js/app/standup/standup.current.revised.html",
         controller: "StandupController",
         controllerAs: "vm",
         requireAuth: true

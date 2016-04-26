@@ -65,13 +65,16 @@
         data: service.reportFormData
          }).then(function(response) {
         $log.info("this report was sent as", response);
-        // service.reportFormData = {};
-        // service.sprint = {};
-        // service.sprintSelected = false;
-        // refreshTeam(service.selectedTeam.id);
+        service.reportFormData = {};
+        service.sprint = {};
+        service.sprintSelected = false;
        }, function(err) {
         $log.info(err);
-       });
+       })
+        .then(function(data){
+          showTeam(service.selectedTeam._id);
+          $log.info(data)
+        });
     }
 
 
@@ -146,7 +149,6 @@
         service.selectedTeam = response.data;
         console.log(response.data);
         $log.info("you chose this team:", service.selectedTeam);
-        return service.selectedTeam;
       }, function(errRes) {
         console.error("error finding that team sir!", errRes);
       });
