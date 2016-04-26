@@ -16,12 +16,16 @@
     vm.dataService  = teamDataService;
     vm.startMeeting = startMeeting;
     vm.authService  = authService;
+    vm.completeMeeting = completeMeeting;
 
 
 
 
 
 
+    function completeMeeting() {
+      $log.info("completeing meeting now captain!")
+    }
 
     function startMeeting() {
       teamDataService

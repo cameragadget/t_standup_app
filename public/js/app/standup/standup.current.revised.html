@@ -5,7 +5,12 @@
 
 <div ng-show="vm.membersLoaded || vm.dataService.selectedTeam.currentMeeting">
   <h4>Our meeting started on {{vm.dataService.selectedTeam.currentMeeting.createdAt | date: 'MM/dd/yyyy'}}</h4>
+  <div ng-show="vm.dataService.remaining() != 0">
     <h4>We are waiting for {{vm.dataService.remaining()}} members to complete their reports.</h4>
+  </div>
+  <div ng-show="vm.dataService.remaining() == 0">
+    <button type="submit" ng-click="vm.completeMeeting();"class="btn btn-default">All Members Have Reported. Archive this Meeting</button>
+  </div>
 </div>
 
 <div class="container">
